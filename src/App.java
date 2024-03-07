@@ -1,24 +1,21 @@
-
-import javax.swing.JFrame;
+import java.awt.BorderLayout;
+import javax.swing.JLayeredPane;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        // MyFrame frame = new MyFrame();
-
-        JFrame frame = new JFrame("UNO");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1250, 720);
+        MyFrame frame = new MyFrame();
 
         Deck deck = new Deck();
-
         User player = new User(deck);
 
-        // System.out.println(player.getCards().get(0).toString());
-        // frame.add(player.getCards().get(0));
-
         // Add the JLabel to the frame
-        frame.add(player.getCards());
+        JLayeredPane playerCards = player.getCards();
+        // JLayeredPane comCards = com1.getCards();
 
+        frame.add(playerCards, BorderLayout.SOUTH);
+        // frame.add(comCards, BorderLayout.NORTH);
+
+        frame.setLocationRelativeTo(null); // Center the frame on the screen
         frame.setVisible(true);
     }
 }

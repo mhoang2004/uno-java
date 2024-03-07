@@ -22,23 +22,24 @@ public class Deck {
         for (String color : colors) {
             for (String rank : ranks) {
                 tempCard = new Card(color, rank);
-
                 this.deck.add(tempCard);
 
-                if (rank != "0") {
+                if (rank != "0") { // except "0" any else will have 2 cards
+                    tempCard = new Card(color, rank);
                     this.deck.add(tempCard);
                 }
             }
-
         }
 
-        tempCard = new Card(null, "WILD"); // 4 wild card
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++) {
+            tempCard = new Card(null, "WILD"); // 4 wild card
             this.deck.add(tempCard);
+        }
 
-        tempCard = new Card(null, "DRAWFOUR"); // 4 +4 card
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++) {
+            tempCard = new Card(null, "DRAWFOUR"); // 4 +4 card
             this.deck.add(tempCard);
+        }
     }
 
     private void shuffleDeck() {
