@@ -12,7 +12,8 @@ public class User {
 
     private ArrayList<Card> cards;
     private ArrayList<Card> selectedCards;
-
+    private ArrayList<Card> suggestedCards;
+    
     User(Deck deck) {
         this.cards = new ArrayList<Card>();
         this.selectedCards = new ArrayList<Card>();
@@ -28,7 +29,7 @@ public class User {
         return cards.size();
     }
 
-    public JLayeredPane getCards() {
+    public JLayeredPane getCards(Card previousCard) {
         // JLayeredPane = Swing container that provieds a third dimension for
         // positioning components. Ex: depth, z-index
         JLayeredPane layeredPane = new JLayeredPane();
@@ -45,12 +46,17 @@ public class User {
             if (test == 3) {
                 card.setY();
             }
-
+        
             card.setBounds(x, card.getY(), Card.WIDTH, Card.HEIGHT);
             x = x + GAP_CARD;
 
             layeredPane.add(card);
             layeredPane.moveToFront(card);
+
+            // suggestion effect
+            if(previousCard.getColor() == card.getColor() || previousCard.getRank() == card.getRank()) {
+                card.suggestedEffect();
+            }
         }
 
         return layeredPane;

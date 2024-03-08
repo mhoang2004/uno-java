@@ -1,6 +1,8 @@
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-
+import java.awt.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 public class Card extends JLabel {
     static final int WIDTH = 80;
     static final int HEIGHT = 120;
@@ -8,7 +10,7 @@ public class Card extends JLabel {
     private String color;
     private String rank;
     private Boolean isSpecial; // if this is not a number cards
-
+ 
     private int y; // where y-dimension of card should be appeard
 
     Card(String color, String rank) {
@@ -60,5 +62,11 @@ public class Card extends JLabel {
             this.y = 0;
         else
             this.y = 20;
+    }
+
+    public void suggestedEffect(){
+        // suggestion effect
+        Border border = new LineBorder(Color.YELLOW, 5);
+        setBorder(border);
     }
 }
