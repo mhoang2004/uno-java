@@ -43,7 +43,7 @@ public class User {
 
         for (Card card : cards) {
             test++;
-            if (test == 3) {
+            if (test == 6) {
                 card.setY();
             }
         

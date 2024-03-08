@@ -1,6 +1,5 @@
 import java.awt.BorderLayout;
 import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
 //import javax.swing.*;
 public class App {
     public static void main(String[] args) throws Exception {
@@ -15,16 +14,11 @@ public class App {
         JLayeredPane playerCards = player.getCards(card);
         // JLayeredPane comCards = com1.getCards();
 
-        // JPanel jPanelPlayer = new JPanel();
-        // jPanelPlayer.setLayout(null);
-        // jPanelPlayer.add(playerCards);
-        // jPanelPlayer.add(playerButton);
         frame.add(playerCards, BorderLayout.SOUTH);
         // frame.add(comCards, BorderLayout.NORTH);
-        //frame.add(jPanelPlayer, BorderLayout.SOUTH);
+
         //frame.add(playerButton, BorderLayout.CENTER);
         playerButton.addActionListener(e -> {
-            // Xử lý sự kiện khi nút được nhấn
             System.out.println("Button clicked!");
         });
 

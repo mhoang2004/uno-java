@@ -3,6 +3,8 @@ import javax.swing.JLabel;
 import java.awt.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+// import java.awt.event.MouseAdapter;
+// import java.awt.event.MouseEvent;
 public class Card extends JLabel {
     static final int WIDTH = 80;
     static final int HEIGHT = 120;
@@ -35,6 +37,7 @@ public class Card extends JLabel {
         this.setIcon(new ImageIcon(path));
         this.setHorizontalAlignment(JLabel.CENTER); // Center the image horizontally
         this.setVerticalAlignment(JLabel.CENTER); // Center the image vertically
+
     }
 
     public String toString() {
