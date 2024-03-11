@@ -1,4 +1,4 @@
-
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
@@ -15,6 +15,7 @@ public class Player extends User {
 
         for (Card card : cards) {
             card.addMouseListener(card);
+            card.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         }
     }
 

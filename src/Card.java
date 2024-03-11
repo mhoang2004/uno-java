@@ -13,13 +13,11 @@ public class Card extends JLabel implements MouseListener {
     static final int WIDTH = 80;
     static final int HEIGHT = 120;
 
-    public int index;
+    public int index; //
     private String color;
     private String rank;
     private Boolean isSpecial; // if this is not a number cards
-
-    // where y-dimension of card should be appear
-    public int xPos;
+    private CardClickListener clickListener;
 
     // BACK CARD
     Card() {
@@ -32,7 +30,6 @@ public class Card extends JLabel implements MouseListener {
         this.setIcon(new ImageIcon("../resources/cards/BACK.png"));
         this.setHorizontalAlignment(JLabel.CENTER); // Center the image horizontally
         this.setVerticalAlignment(JLabel.CENTER); // Center the image vertically
-
     }
 
     Card(String color, String rank) {
@@ -57,7 +54,10 @@ public class Card extends JLabel implements MouseListener {
         this.setHorizontalAlignment(JLabel.CENTER); // Center the image horizontally
         this.setVerticalAlignment(JLabel.CENTER); // Center the image vertically
 
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }
+
+    public void setClickListener(CardClickListener clickListener) {
+        this.clickListener = clickListener;
     }
 
     public String toString() {
@@ -82,9 +82,19 @@ public class Card extends JLabel implements MouseListener {
         setBorder(border);
     }
 
+    public void hitCard(Card currentCard) {
+        currentCard = this;
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
         System.out.println("You clicked the mouse" + "-" + index);
+
+        // check valid card
+        clickListener.onCardClick(this);
+
+        // if success
+        // hitTheCard();
     }
 
     @Override

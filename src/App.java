@@ -46,9 +46,9 @@ public class App {
         center.setBackground(new Color(3, 104, 63));
 
         Card backCard = new Card();
-        Card firstCard = deck.getOneCard();
+        Card currentCard = deck.getOneCard();
         center.add(backCard);
-        center.add(firstCard);
+        center.add(currentCard);
         /* END DEMO */
 
         frame.add(playerCards, BorderLayout.SOUTH);
