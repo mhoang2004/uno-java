@@ -37,4 +37,13 @@ public abstract class User {
     }
 
     public abstract JLayeredPane printCards();
+
+    public ArrayList<Card> getCards() {
+        return cards;
+    }
+
+    // public void drawCard(Deck deck) {
+    //     Card card = deck.getOneCard();
+    //     cards.add(card);
+    // }
 }

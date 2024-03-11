@@ -1,46 +1,67 @@
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.JLabel;
 
-public class ButtonUno extends JButton {
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.*;
+public class ButtonUno extends JLabel implements MouseListener {
     static final int WIDTH = 80;
-    static final int HEIGHT = 73;
+    static final int HEIGHT = 72;
 
     private String button; //determines whether the button is a player or an npc
-    private int x;
-    private int y;
+    static boolean unoClicked = false;
 
-    ButtonUno(String button, int x, int y){
+    ButtonUno(String button){
         super();
+
         this.button = button;
-        this.x = x;
-        this.y = y;
 
         // get button
-        this.setIcon(new ImageIcon("../resources/button-uno/button-uno.png"));
-        this.setHorizontalAlignment(JButton.CENTER); // Center the image horizontally
-        this.setVerticalAlignment(JButton.CENTER); // Center the image vertically
-        this.setContentAreaFilled(false);
-        this.setBounds(this.x, this.y, WIDTH, HEIGHT);
-
+        ImageIcon icon = new ImageIcon("../resources/images/button-uno.png") ;
+        this.setIcon(icon);  
+        this.setHorizontalAlignment(JLabel.CENTER); // Center the image horizontally
+        this.setVerticalAlignment(JLabel.CENTER); // Center the image vertically
+        this.setBounds(0, 0, WIDTH, HEIGHT);
+        // this.setContentAreaFilled(false);
+        // this.setOpaque(true);
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         // handled when the button is pressed
-        addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                
-            }
-        });
+        
     }
 
     public String getButton(){
         return this.button;
     }
-    public int getX(){
-        return this.x;
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // TODO Auto-generated method stub
+        System.out.println("button uno clicked!");
+        unoClicked = true;
     }
-    public int getY(){
-        return this.y;
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // TODO Auto-generated method stub
+       
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // TODO Auto-generated method stub
+        this.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // TODO Auto-generated method stub
+        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }
 
     

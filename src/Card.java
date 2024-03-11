@@ -109,4 +109,26 @@ public class Card extends JLabel implements MouseListener {
         this.setLocation(this.getX(), 50);
         this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Card other = (Card) obj;
+        if (color == null) {
+            if (other.color != null)
+                return false;
+        } else if (!color.equals(other.color))
+            return false;
+        if (rank == null) {
+            if (other.rank != null)
+                return false;
+        } else if (!rank.equals(other.rank))
+            return false;
+        return true;
+    }
 }
