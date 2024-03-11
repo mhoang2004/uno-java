@@ -7,8 +7,6 @@ import java.awt.event.MouseListener;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
-// import java.awt.event.MouseAdapter;
-// import java.awt.event.MouseEvent;
 public class Card extends JLabel implements MouseListener {
     static final int WIDTH = 80;
     static final int HEIGHT = 120;
@@ -17,7 +15,6 @@ public class Card extends JLabel implements MouseListener {
     private String color;
     private String rank;
     private Boolean isSpecial; // if this is not a number cards
-    private CardClickListener clickListener;
 
     // BACK CARD
     Card() {
@@ -56,10 +53,6 @@ public class Card extends JLabel implements MouseListener {
 
     }
 
-    public void setClickListener(CardClickListener clickListener) {
-        this.clickListener = clickListener;
-    }
-
     public String toString() {
         return color + "-" + rank;
     }
@@ -91,7 +84,6 @@ public class Card extends JLabel implements MouseListener {
         System.out.println("You clicked the mouse" + "-" + index);
 
         // check valid card
-        clickListener.onCardClick(this);
 
         // if success
         // hitTheCard();

@@ -2,12 +2,8 @@ import java.util.ArrayList;
 
 import javax.swing.JLayeredPane;
 
-interface CardClickListener {
-    void onCardClick(Card card);
-}
-
-public abstract class User implements CardClickListener {
-    static final int INIT_CARD = 20;
+public abstract class User {
+    static final int INIT_CARD = 7;
     static final int GAP_CARD_HORIZONTAL = 50; // 50px gap each card
     static final int GAP_CARD_VERTICAL = 20;
 
