@@ -1,3 +1,4 @@
+import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javax.swing.JLayeredPane;
@@ -8,23 +9,23 @@ public abstract class User {
     static final int GAP_CARD_VERTICAL = 20;
 
     protected ArrayList<Card> cards;
+    protected JLayeredPane panel;
 
     User(Deck deck) {
         this.cards = new ArrayList<Card>();
+        // JLayeredPane = Swing container that provides a third dimension for
+        // positioning components. Ex: depth, z-index
+        panel = new JLayeredPane();
+
+        // using setPreferredSize() no guarantee that the layout manager will honor the
+        // preferred size exactly.
+        panel.setPreferredSize(new Dimension(Card.WIDTH, Card.HEIGHT + GAP_CARD_VERTICAL));
+        panel.setLayout(null);
 
         for (int i = 0; i < INIT_CARD; i++) {
             Card card = deck.getOneCard();
-
-            // set index to do event handler
-            card.index = i;
-
             cards.add(card);
         }
-    }
-
-    public void onCardClick(Card card) {
-        // Handle card click in the User class
-        System.out.println("Card clicked: " + card.getColor() + "-" + card.getRank());
     }
 
     // number of cards user have...
@@ -32,18 +33,18 @@ public abstract class User {
         return cards.size();
     }
 
-    public void hitTheCard() {
-
-    }
-
-    public abstract JLayeredPane printCards();
+    public abstract void getLatestPanel();
 
     public ArrayList<Card> getCards() {
         return cards;
     }
 
+    public JLayeredPane getPanel() {
+        return panel;
+    }
+
     // public void drawCard(Deck deck) {
-    //     Card card = deck.getOneCard();
-    //     cards.add(card);
+    // Card card = deck.getOneCard();
+    // cards.add(card);
     // }
 }

@@ -11,8 +11,8 @@ public class Card extends JLabel implements MouseListener {
     static final int WIDTH = 80;
     static final int HEIGHT = 120;
 
-    public int index; //
     private String color;
+    private String path;
     private String rank;
     private Boolean isSpecial; // if this is not a number cards
 
@@ -33,16 +33,10 @@ public class Card extends JLabel implements MouseListener {
         super();
         this.color = color;
         this.rank = rank;
-
-        // set isSpecial ...
-        if (rank.length() > 1) {
-            isSpecial = true;
-        } else {
-            isSpecial = false;
-        }
+        setIsSpecial();
 
         // get image
-        String path = "../resources/cards/";
+        this.path = "../resources/cards/";
         if (color != null) {
             path += color + "-";
         }
@@ -50,11 +44,31 @@ public class Card extends JLabel implements MouseListener {
         this.setIcon(new ImageIcon(path));
         this.setHorizontalAlignment(JLabel.CENTER); // Center the image horizontally
         this.setVerticalAlignment(JLabel.CENTER); // Center the image vertically
-
     }
 
     public String toString() {
         return color + "-" + rank;
+    }
+
+    public void hitCard(Card card) {
+        this.color = card.getColor();
+        this.rank = card.getRank();
+        this.path = card.getPath();
+        setIsSpecial();
+
+        this.setIcon(new ImageIcon(path));
+    }
+
+    private void setIsSpecial() {
+        if (rank.length() > 1) {
+            isSpecial = true;
+        } else {
+            isSpecial = false;
+        }
+    }
+
+    public String getPath() {
+        return path;
     }
 
     public Boolean getIsSpecial() {
@@ -75,18 +89,18 @@ public class Card extends JLabel implements MouseListener {
         setBorder(border);
     }
 
-    public void hitCard(Card currentCard) {
-        currentCard = this;
-    }
-
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("You clicked the mouse" + "-" + index);
-
         // check valid card
 
         // if success
-        // hitTheCard();
+        Game.prevCard.hitCard(this);
+
+        // player.cards.remove(this);
+        // player.getLastestPanel();
+        // layeredPane.remove(button);
+        // layeredPane.revalidate();
+        // layeredPane.repaint();
     }
 
     @Override

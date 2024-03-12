@@ -2,16 +2,12 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
-import javax.swing.JLayeredPane;
-
 public class Player extends User {
-    private int selectedCardIndex;
     private ArrayList<Card> suggestedCards;
 
     Player(Deck deck) {
         super(deck);
-
-        selectedCardIndex = -1;
+        this.getLatestPanel();
 
         for (Card card : cards) {
             card.addMouseListener(card);
@@ -19,24 +15,17 @@ public class Player extends User {
         }
     }
 
-    public JLayeredPane printCards() {
-        // JLayeredPane = Swing container that provides a third dimension for
-        // positioning components. Ex: depth, z-index
-        JLayeredPane layeredPane = new JLayeredPane();
-
-        // using setPreferredSize() no guarantee that the layout manager will honor the
-        // preferred size exactly.
-        layeredPane.setPreferredSize(new Dimension(Card.WIDTH, Card.HEIGHT + GAP_CARD_VERTICAL));
-
-        int x = (MyFrame.WIDTH - (Card.WIDTH + (size() - 1) * GAP_CARD_HORIZONTAL)) / 2;
+    public void getLatestPanel() {
+        int xPosition = (MyFrame.WIDTH - (Card.WIDTH + (size() - 1) * GAP_CARD_HORIZONTAL)) / 2;
+        int yPosition = 50;
 
         for (Card card : cards) {
-            card.setBounds(x, 50, Card.WIDTH, Card.HEIGHT);
+            card.setBounds(xPosition, yPosition, Card.WIDTH, Card.HEIGHT);
 
-            x += GAP_CARD_HORIZONTAL;
+            xPosition += GAP_CARD_HORIZONTAL;
 
-            layeredPane.add(card);
-            layeredPane.moveToFront(card);
+            panel.add(card);
+            panel.moveToFront(card);
 
             // suggestion effect
             // if(previousCard.getColor() == card.getColor() || previousCard.getRank() ==
@@ -44,7 +33,5 @@ public class Player extends User {
             // card.suggestedEffect();
             // }
         }
-
-        return layeredPane;
     }
 }

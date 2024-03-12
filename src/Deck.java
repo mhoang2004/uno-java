@@ -63,7 +63,7 @@ public class Deck {
     }
 
     public Card getOneCard() {
-        return this.deck.remove(this.size() - 1);
+        return this.deck.remove(0);
     }
 
     // public static void main(String[] args) {
