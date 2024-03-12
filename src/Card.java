@@ -17,6 +17,18 @@ public class Card extends JLabel implements MouseListener {
     private Boolean isSpecial; // if this is not a number cards
 
     // BACK CARD
+    Card (Card x)
+    {
+        super();
+        
+        this.color = x.color;
+        this.rank = x.rank;
+        isSpecial = x.isSpecial;
+
+        this.setIcon(new ImageIcon("../resources/cards/BACK.png"));
+        this.setHorizontalAlignment(JLabel.CENTER); // Center the image horizontally
+        this.setVerticalAlignment(JLabel.CENTER); // Center the image vertically
+    }
     Card() {
         super();
 

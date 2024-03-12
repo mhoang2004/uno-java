@@ -13,6 +13,8 @@ public class Player extends User {
             card.addMouseListener(card);
             card.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         }
+        System.out.println("HELLOOOO");
+
     }
 
     public void getLatestPanel() {

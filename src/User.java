@@ -26,6 +26,36 @@ public abstract class User {
             Card card = deck.getOneCard();
             cards.add(card);
         }
+        System.out.println("HELLO------");
+        System.out.println("-------------------------TRƯỚC KHI SORT----------------");
+        for (Card card : cards) {
+            System.out.println(card.toString());
+        }
+        sortCard();
+        System.out.println("-------------------------SAU KHI SORT----------------");
+        for (Card card : cards) {
+            System.out.println(card.toString());
+        }
+    }
+
+    public void sortCard() {
+        Card firstCard = new Card(cards.get(0));
+        boolean tmp = false;
+        for (int i = 1; i < cards.size(); i++) {
+            if (firstCard.getColor() != cards.get(i).getColor()) {
+                for (int j = i + 1; j < cards.size(); j++) {
+                    if (firstCard.getColor() == cards.get(j).getColor()) {
+                        Card cardTMP = cards.get(i);
+                        cards.set(i, cards.get(j));
+                        cards.set(j, cardTMP);
+
+                        break;
+                    }
+                }
+
+            }
+            firstCard = cards.get(i);
+        }
     }
 
     // number of cards user have...
