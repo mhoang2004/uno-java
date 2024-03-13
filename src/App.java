@@ -12,6 +12,5 @@ public class App {
                 // game.update();
             }
         });
-
     }
 }

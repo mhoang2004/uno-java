@@ -2,6 +2,8 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
+import javax.swing.JLayeredPane;
+
 public class Player extends User {
     private ArrayList<Card> suggestedCards;
 
@@ -13,21 +15,19 @@ public class Player extends User {
             card.addMouseListener(card);
             card.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         }
-        System.out.println("HELLOOOO");
-
     }
 
     public void getLatestPanel() {
         int xPosition = (MyFrame.WIDTH - (Card.WIDTH + (size() - 1) * GAP_CARD_HORIZONTAL)) / 2;
         int yPosition = 50;
+        int layer = 0;
 
         for (Card card : cards) {
             card.setBounds(xPosition, yPosition, Card.WIDTH, Card.HEIGHT);
-
             xPosition += GAP_CARD_HORIZONTAL;
+            panel.add(card, Integer.valueOf(layer++));
 
-            panel.add(card);
-            panel.moveToFront(card);
+            // panel.moveToFront(card);
 
             // suggestion effect
             // if(previousCard.getColor() == card.getColor() || previousCard.getRank() ==
@@ -35,5 +35,6 @@ public class Player extends User {
             // card.suggestedEffect();
             // }
         }
+        panel.repaint();
     }
 }

@@ -14,6 +14,7 @@ public class Computer extends User {
     public void getLatestPanel() {
         int xPosition = 20;
         int yPosition = 20; // padding 20 pixels
+        int layer = 0;
 
         if (position == "NORTH") {
             xPosition = (MyFrame.WIDTH - (Card.WIDTH + (size() - 1) * GAP_CARD_HORIZONTAL)) / 2;
@@ -37,8 +38,7 @@ public class Computer extends User {
                 yPosition += GAP_CARD_VERTICAL;
             }
 
-            panel.add(backCard);
-            panel.moveToFront(backCard);
+            panel.add(backCard, Integer.valueOf(layer++));
         }
     }
 }

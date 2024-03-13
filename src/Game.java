@@ -4,14 +4,14 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 
 class Game {
+    static Card prevCard;
     private MyFrame frame;
+
     final int COMPUTER_NUM = 3; // 0 < x < 4
 
     private Deck deck;
 
     private Player player;
-    static Card prevCard;
-
     private Computer com1;
     private Computer com2;
     private Computer com3;
@@ -19,24 +19,17 @@ class Game {
     private ButtonUno playerButton;
 
     Game() {
-        this.frame = new MyFrame();
-        this.deck = new Deck();
+        frame = new MyFrame();
+        deck = new Deck();
 
-        this.player = new Player(deck);
-        this.com1 = new Computer(deck, "NORTH");
-        this.com2 = new Computer(deck, "WEST");
-        this.com3 = new Computer(deck, "EAST");
+        player = new Player(deck);
+        com1 = new Computer(deck, "NORTH");
+        com2 = new Computer(deck, "WEST");
+        com3 = new Computer(deck, "EAST");
 
-        this.playerButton = new ButtonUno("player");
+        playerButton = new ButtonUno("player");
         prevCard = deck.getOneCard();
     }
-
-    /*
-     * đầu tiên trong hàm nghe click của Card -> sẽ gán prevCard = card,
-     * sau đó, sẽ xoá card ra khỏi bộ bài của Player (nó sẽ tự động xong mọi thứ)
-     * việc đầu tiên là gán lại preCard = card
-     * 
-     */
 
     void render() {
         JPanel center = new JPanel();

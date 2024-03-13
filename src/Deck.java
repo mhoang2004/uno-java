@@ -9,36 +9,34 @@ public class Deck {
     private ArrayList<Card> deck;
 
     Deck() {
-        if (this.deck != null)
-            this.deck.clear();
+        if (deck != null)
+            deck.clear();
         this.createDeck();
         this.shuffleDeck();
     }
 
     private void createDeck() {
-        this.deck = new ArrayList<Card>();
+        deck = new ArrayList<Card>();
         Card tempCard;
 
         for (String color : colors) {
             for (String rank : ranks) {
                 tempCard = new Card(color, rank);
-                this.deck.add(tempCard);
+                deck.add(tempCard);
 
-                if (rank != "0") { // except "0" any else will have 2 cards
-                    tempCard = new Card(color, rank);
-                    this.deck.add(tempCard);
-                }
+                if (rank != "0") // except "0" any else will have 2 cards
+                    deck.add(new Card(tempCard));
             }
         }
 
         for (int i = 0; i < 4; i++) {
             tempCard = new Card(null, "WILD"); // 4 wild card
-            this.deck.add(tempCard);
+            deck.add(tempCard);
         }
 
         for (int i = 0; i < 4; i++) {
             tempCard = new Card(null, "DRAWFOUR"); // 4 +4 card
-            this.deck.add(tempCard);
+            deck.add(tempCard);
         }
     }
 
@@ -49,28 +47,20 @@ public class Deck {
         for (int i = 0; i < size; i++) {
             j = random.nextInt(size);
             Card temp = deck.get(i);
-            this.deck.set(i, deck.get(j));
-            this.deck.set(j, temp);
+            deck.set(i, deck.get(j));
+            deck.set(j, temp);
         }
     }
 
     public ArrayList<Card> getDeck() {
-        return this.deck;
+        return deck;
     }
 
     public int size() {
-        return this.deck.size();
+        return deck.size();
     }
 
     public Card getOneCard() {
-        return this.deck.remove(0);
+        return deck.remove(0);
     }
-
-    // public static void main(String[] args) {
-    // Deck deck = new Deck();
-    // int size = deck.size();
-    // for (int i = 0; i < 10; i++) {
-    // System.out.println(deck.getDeck().get(i).toString());
-    // }
-    // }
 }

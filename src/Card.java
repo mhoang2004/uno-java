@@ -12,43 +12,34 @@ public class Card extends JLabel implements MouseListener {
     static final int HEIGHT = 120;
 
     private String color;
-    private String path;
     private String rank;
-    private Boolean isSpecial; // if this is not a number cards
+
+    private User user;
 
     // BACK CARD
-    Card (Card x)
-    {
-        super();
-        
-        this.color = x.color;
-        this.rank = x.rank;
-        isSpecial = x.isSpecial;
-
-        this.setIcon(new ImageIcon("../resources/cards/BACK.png"));
-        this.setHorizontalAlignment(JLabel.CENTER); // Center the image horizontally
-        this.setVerticalAlignment(JLabel.CENTER); // Center the image vertically
-    }
     Card() {
         super();
+        color = null;
+        rank = "BACK";
+        setCard();
+    }
 
-        this.color = null;
-        this.rank = "BACK";
-        isSpecial = false;
-
-        this.setIcon(new ImageIcon("../resources/cards/BACK.png"));
-        this.setHorizontalAlignment(JLabel.CENTER); // Center the image horizontally
-        this.setVerticalAlignment(JLabel.CENTER); // Center the image vertically
+    Card(Card x) {
+        super();
+        this.color = x.color;
+        this.rank = x.rank;
+        this.setCard();
     }
 
     Card(String color, String rank) {
         super();
         this.color = color;
         this.rank = rank;
-        setIsSpecial();
+        setCard();
+    }
 
-        // get image
-        this.path = "../resources/cards/";
+    public void setCard() {
+        String path = "../resources/cards/";
         if (color != null) {
             path += color + "-";
         }
@@ -58,33 +49,24 @@ public class Card extends JLabel implements MouseListener {
         this.setVerticalAlignment(JLabel.CENTER); // Center the image vertically
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public String toString() {
         return color + "-" + rank;
     }
 
-    public void hitCard(Card card) {
+    public void assignCard(Card card) {
         this.color = card.getColor();
         this.rank = card.getRank();
-        this.path = card.getPath();
-        setIsSpecial();
-
-        this.setIcon(new ImageIcon(path));
+        this.setIcon(card.getIcon());
     }
 
-    private void setIsSpecial() {
-        if (rank.length() > 1) {
-            isSpecial = true;
-        } else {
-            isSpecial = false;
-        }
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public Boolean getIsSpecial() {
-        return isSpecial;
+    private Boolean isSpecial() {
+        if (rank.length() > 1)
+            return true;
+        return false;
     }
 
     public String getColor() {
@@ -96,28 +78,20 @@ public class Card extends JLabel implements MouseListener {
     }
 
     public void suggestedEffect() {
-        // suggestion effect
         Border border = new LineBorder(Color.YELLOW, 5);
         setBorder(border);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // check valid card
+        // TODO check valid card
 
         // if success
-        Game.prevCard.hitCard(this);
-
-        // player.cards.remove(this);
-        // player.getLastestPanel();
-        // layeredPane.remove(button);
-        // layeredPane.revalidate();
-        // layeredPane.repaint();
+        user.hitCard(this);
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
     }
 
     @Override
