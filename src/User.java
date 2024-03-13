@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import javax.swing.JLayeredPane;
 
 public abstract class User {
-    static final int INIT_CARD = 12;
+    static final int INIT_CARD = 7;
     static final int GAP_CARD_HORIZONTAL = 50; // 50px gap each card
     static final int GAP_CARD_VERTICAL = 20;
 
@@ -28,16 +28,15 @@ public abstract class User {
             cards.add(card);
         }
 
-        // System.out.println("-------------------------TRƯỚC KHI
-        // SORT----------------");
-        // for (Card card : cards) {
-        // System.out.println(card.toString());
-        // }
-        // sortCard();
-        // System.out.println("-------------------------SAU KHI SORT----------------");
-        // for (Card card : cards) {
-        // System.out.println(card.toString());
-        // }
+        System.out.println("-------------------------TRƯỚC KHI SORT----------------");
+        for (Card card : cards) {
+            System.out.println(card.toString());
+        }
+        sortCard();
+        System.out.println("-------------------------SAU KHI SORT----------------");
+        for (Card card : cards) {
+            System.out.println(card.toString());
+        }
     }
 
     public void hitCard(Card card) {
@@ -53,21 +52,22 @@ public abstract class User {
     }
 
     public void sortCard() {
-        // Card firstCard = new Card(cards.get(0));
-        // for (int i = 1; i < cards.size(); i++) {
-        // if (firstCard.getColor() != cards.get(i).getColor()) {
-        // for (int j = i + 1; j < cards.size(); j++) {
-        // if (firstCard.getColor() == cards.get(j).getColor()) {
-        // Card cardTMP = cards.get(i);
-        // cards.set(i, cards.get(j));
-        // cards.set(j, cardTMP);
-        // break;
-        // }
-        // }
-        // }
-        // firstCard = cards.get(i);
-        // }
+        Card firstCard = new Card(cards.get(0));
+        for (int i = 1; i < cards.size(); i++) {
+            if (firstCard.getColor() != cards.get(i).getColor()) {
+                for (int j = i + 1; j < cards.size(); j++) {
+                    if (firstCard.getColor() == cards.get(j).getColor()) {
+                        Card cardTMP = cards.get(i);
+                        cards.set(i, cards.get(j));
+                        cards.set(j, cardTMP);
+                        break;
+                    }
+                }
+            }
+            firstCard = cards.get(i);
+        }
 
+        // ? Hoang's sort, but fail :(
         // int n = cards.size();
         // for (int i = 0; i < n - 1; i++) {
         // for (int j = i + 1; j < n; j++) {
