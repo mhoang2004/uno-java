@@ -10,13 +10,13 @@ public class ButtonUno extends JLabel implements MouseListener {
     static final int HEIGHT = 72;
 
     private String button; // determines whether the button is a player or an npc
-    static boolean unoClicked = false;
+    private boolean unoClicked;
 
     ButtonUno(String button) {
         super();
 
-        this.button = button;
-
+        this.button = button;   
+        this.unoClicked = false;
         // get button
         ImageIcon icon = new ImageIcon("../resources/images/button-uno.png");
         this.setIcon(icon);
@@ -35,11 +35,20 @@ public class ButtonUno extends JLabel implements MouseListener {
         return this.button;
     }
 
+    public boolean getUnoClicked() {
+        return this.unoClicked;
+    }
+
+    public void setUnoClicked() {
+        this.unoClicked = false;
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
         // TODO Auto-generated method stub
-        System.out.println("button uno clicked!");
+        System.out.println("button uno clickedddddddddddddddddddddd");
         unoClicked = true;
+        System.out.println(unoClicked);
     }
 
     @Override

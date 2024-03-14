@@ -40,5 +40,48 @@ public class Computer extends User {
 
             panel.add(backCard, Integer.valueOf(layer++));
         }
+
+    } 
+
+    public Card selectedCard() {
+        for(Card card : cards) {
+            if(card.getColor() == Game.prevCard.getColor()) {
+                if (card.getRank().length() == 1)
+                    return card;
+            }
+        }
+        for(Card card : cards) {
+            if (card.getRank() == Game.prevCard.getRank()) {
+                return card;
+            }
+        }
+        for(Card card : cards) {
+            if (card.getRank() == "WILD") {
+                return card;
+            }
+        }
+        for(Card card : cards) {
+            if (card.getRank() == "DRAWFOUR") {
+                return card;
+            }
+        }
+        return null;
     }
+
+    public void ComputerHitCard(Deck deck) {
+        Card selectedCard;
+        selectedCard = this.selectedCard();
+        System.out.println("selectedCard = " + selectedCard);
+        if (selectedCard != null) {
+            // Game.prevCard = selectedCard;
+            this.hitCard(selectedCard);
+        }
+        else {
+            this.drawCard(deck);
+        } 
+        System.out.println("prevCard = " + Game.prevCard);
+        this.nextUser.setTurn(true);
+        this.setTurn(false);
+    }
+        
 }

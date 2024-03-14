@@ -14,8 +14,7 @@ public class Card extends JLabel implements MouseListener {
     private String color;
     private String rank;
 
-    private User user;
-
+    private User user; // ai gui la bai nay
     // BACK CARD
     Card() {
         super();
@@ -87,7 +86,17 @@ public class Card extends JLabel implements MouseListener {
         // TODO check valid card
 
         // if success
-        user.hitCard(this);
+        // if (Game.turn == 0) {
+        //     user.hitCard(this);
+        //     Game.turn = (Game.turn+1)%4;
+        // }
+        if (user.getTurn() == true) {
+            user.hitCard(this);
+            user.getNextUser().setTurn(true);
+            user.setTurn(false);
+            Game.computerPlayed();
+        }
+        // System.out.println(Game.turn);
     }
 
     @Override

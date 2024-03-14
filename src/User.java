@@ -10,13 +10,16 @@ public abstract class User {
 
     protected ArrayList<Card> cards;
     protected JLayeredPane panel;
-
+    protected User nextUser;
+    protected boolean turn;
+    
     User(Deck deck) {
         cards = new ArrayList<Card>();
         // JLayeredPane = Swing container that provides a third dimension for
         // positioning components. Ex: depth, z-index
         panel = new JLayeredPane();
-
+        // turn
+        turn = false;
         // using setPreferredSize() no guarantee that the layout manager will honor the
         // preferred size exactly.
         panel.setPreferredSize(new Dimension(Card.WIDTH, Card.HEIGHT + GAP_CARD_VERTICAL));
@@ -24,19 +27,19 @@ public abstract class User {
 
         for (int i = 0; i < INIT_CARD; i++) {
             Card card = deck.getOneCard();
-            card.setUser(this);
+            card.setUser(this); // set user
             cards.add(card);
         }
 
-        System.out.println("-------------------------TRƯỚC KHI SORT----------------");
-        for (Card card : cards) {
-            System.out.println(card.toString());
-        }
-        sortCard();
-        System.out.println("-------------------------SAU KHI SORT----------------");
-        for (Card card : cards) {
-            System.out.println(card.toString());
-        }
+        // System.out.println("-------------------------TRƯỚC KHI SORT----------------");
+        // for (Card card : cards) {
+        //     System.out.println(card.toString());
+        // }
+        // sortCard();
+        // System.out.println("-------------------------SAU KHI SORT----------------");
+        // for (Card card : cards) {
+        //     System.out.println(card.toString());
+        // }
     }
 
     public void hitCard(Card card) {
@@ -119,8 +122,25 @@ public abstract class User {
         return panel;
     }
 
-    // public void drawCard(Deck deck) {
-    // Card card = deck.getOneCard();
-    // cards.add(card);
-    // }
+    public void drawCard(Deck deck) {
+        Card card = deck.getOneCard();
+        cards.add(card);
+    }
+
+    public void setTurn(boolean turn){
+        this.turn = turn;
+    }
+
+    public boolean getTurn() {
+        return turn;
+    }
+
+    public void setNextUser(User nextUser) {
+        this.nextUser = nextUser;
+    }
+
+    public User getNextUser() {
+        return nextUser;
+    }
+
 }
