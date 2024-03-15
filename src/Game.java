@@ -20,7 +20,7 @@ class Game {
 
     static Player player;
 
-    boolean reverse;
+    static boolean reverse;
 
     Game() {
         frame = new MyFrame();
@@ -43,7 +43,7 @@ class Game {
 
         playerButton = new ButtonUno("player");
         prevCard = deck.getOneCard();
-        reverse = true;
+        reverse = true; // chieu kim dong ho
     }
 
     public void render() {
@@ -89,59 +89,89 @@ class Game {
     }
 
     public static void computerPlayed() {
-        System.out.println(com.get(0).getTurn());
+        System.out.println("com0" + com.get(0).getTurn());
         if (com.get(0).getTurn() == true) {
             System.out.println("--------Com1 card-------");
             com.get(0).ComputerHitCard(deck);
         }
-
-        Timer timer = new Timer(2000, new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                computer1Played();
-                ((Timer) e.getSource()).stop();
-            }
-        });
-        timer.start();
+        // REVERSE
+        if (Game.prevCard.getRank() == "REVERSE") {
+            Game.reverse();
+        }
+        if (Game.reverse == true) {
+            Timer timer = new Timer(2000, new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    computer1Played();
+                    ((Timer) e.getSource()).stop();
+                }
+            });
+            timer.start();
+        }
     }
 
     public static void computer1Played() {
-        System.out.println(com.get(1).getTurn());
+        System.out.println("com1" + com.get(1).getTurn());
         if (com.get(1).getTurn() == true) {
             System.out.println("--------Com2 card-------");
             com.get(1).ComputerHitCard(deck);
         }
-        Timer timer = new Timer(2000, new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                computer2Played();
-                ((Timer) e.getSource()).stop();
-            }
-        });
-        timer.start();
+        if (Game.prevCard.getRank() == "REVERSE") {
+            Game.reverse();
+        }
+        if (Game.reverse == true) {
+            Timer timer = new Timer(2000, new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    computer2Played();
+                    ((Timer) e.getSource()).stop();
+                }
+            });
+            timer.start();
+        }
+        else if (Game.reverse == false) {
+            Timer timer = new Timer(2000, new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    computerPlayed();
+                    ((Timer) e.getSource()).stop();
+                }
+            });
+            timer.start();
+        }
     }
 
     public static void computer2Played() {
-        System.out.println(com.get(2).getTurn());
+        System.out.println("com2" + com.get(2).getTurn());
         if (com.get(2).getTurn() == true) {
             System.out.println("--------Com3 card-------");
             com.get(2).ComputerHitCard(deck);
         }
-
+        if (Game.prevCard.getRank() == "REVERSE") {
+            Game.reverse();
+        }
+        if (Game.reverse == false) {
+            Timer timer = new Timer(2000, new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    computer1Played();
+                    ((Timer) e.getSource()).stop();
+                }
+            });
+            timer.start();
+        }
     }
 
     // REVERSE
-    public void reverse() {
+    public static void reverse() {
         if (reverse == true) {
             player.setNextUser(com.get(2));
             com.get(2).setNextUser(com.get(1));
             com.get(1).setNextUser(com.get(0));
             com.get(0).setNextUser(player);
-            reverse = false;
+            reverse = false; // nguoc chieu kim dong ho
         } else {
             com.get(0).setNextUser(com.get(1));
             com.get(1).setNextUser(com.get(2));
             com.get(2).setNextUser(player);
             player.setNextUser(com.get(0));
-            reverse = true;
+            reverse = true; // dung chieu kim dong ho
         }
     }
 

@@ -97,16 +97,31 @@ public class Card extends JLabel implements MouseListener {
 
         if (user.getTurn() == true) {
             user.hitCard(this);
+            
+            // REVERSE
+            if (Game.prevCard.getRank() == "REVERSE") {
+                Game.reverse();
+            }
             user.getNextUser().setTurn(true);
             user.setTurn(false);
-
-            Timer timer = new Timer(2000, new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    Game.computerPlayed();
-                    ((Timer) e.getSource()).stop();
-                }
-            });
-            timer.start();
+            if (Game.reverse == true) {
+                Timer timer = new Timer(2000, new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        Game.computerPlayed();
+                        ((Timer) e.getSource()).stop();
+                    }
+                });
+                timer.start();
+            }
+            else if (Game.reverse == false) {
+                Timer timer = new Timer(2000, new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        Game.computer2Played();
+                        ((Timer) e.getSource()).stop();
+                    }
+                });
+                timer.start();
+            }
         }
     }
 
