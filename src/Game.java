@@ -19,6 +19,7 @@ class Game {
 
     static Player player;
     
+    boolean reverse;
     Game() {
         frame = new MyFrame();
         deck = new Deck();
@@ -40,6 +41,7 @@ class Game {
 
         playerButton = new ButtonUno("player");
         prevCard = deck.getOneCard();
+        reverse = true;
     }
 
     public void render() {
@@ -85,36 +87,44 @@ class Game {
     public static void computerPlayed() {
         System.out.println(com.get(0).getTurn());
         if (com.get(0).getTurn() == true) {
-            com.get(0).ComputerHitCard(deck);
             System.out.println("--------Com1 card-------");
-            for (int i=0; i < com.get(0).getCards().size(); i++) {
-                System.out.println(com.get(0).getCards().get(i));
-            }
+            com.get(0).ComputerHitCard(deck);
         }
-      
-        
         computer1Played();
     }
 
     public static void computer1Played() {
         System.out.println(com.get(1).getTurn());
         if (com.get(1).getTurn() == true) {
-            com.get(1).ComputerHitCard(deck);
             System.out.println("--------Com2 card-------");
-            for (int i=0; i < com.get(1).getCards().size(); i++) {
-                System.out.println(com.get(1).getCards().get(i));
-            }
+            com.get(1).ComputerHitCard(deck);
         }
+        computer2Played();
     }
 
     public static void computer2Played() {
         System.out.println(com.get(2).getTurn());
         if (com.get(2).getTurn() == true) {
-            com.get(2).ComputerHitCard(deck);
             System.out.println("--------Com3 card-------");
-            for (int i=0; i < com.get(2).getCards().size(); i++) {
-                System.out.println(com.get(2).getCards().get(i));
-            }
+            com.get(2).ComputerHitCard(deck);
+        }
+        
+    }
+    // REVERSE
+    public void reverse() {
+        if (reverse == true) {
+            player.setNextUser(com.get(2));
+            com.get(2).setNextUser(com.get(1)); 
+            com.get(1).setNextUser(com.get(0)); 
+            com.get(0).setNextUser(player);  
+            reverse = false;
+        }
+        else {
+            com.get(0).setNextUser(com.get(1));  
+            com.get(1).setNextUser(com.get(2));  
+            com.get(2).setNextUser(player);  
+            player.setNextUser(com.get(0));
+            reverse = true;
         }
     }
     public void update() {
