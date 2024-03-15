@@ -12,7 +12,7 @@ public abstract class User {
     protected JLayeredPane panel;
     protected User nextUser;
     protected boolean turn;
-    
+
     User(Deck deck) {
         cards = new ArrayList<Card>();
         // JLayeredPane = Swing container that provides a third dimension for
@@ -31,14 +31,15 @@ public abstract class User {
             cards.add(card);
         }
 
-        // System.out.println("-------------------------TRƯỚC KHI SORT----------------");
+        // System.out.println("-------------------------TRƯỚC KHI
+        // SORT----------------");
         // for (Card card : cards) {
-        //     System.out.println(card.toString());
+        // System.out.println(card.toString());
         // }
         // sortCard();
         // System.out.println("-------------------------SAU KHI SORT----------------");
         // for (Card card : cards) {
-        //     System.out.println(card.toString());
+        // System.out.println(card.toString());
         // }
     }
 
@@ -125,9 +126,10 @@ public abstract class User {
     public void drawCard(Deck deck) {
         Card card = deck.getOneCard();
         cards.add(card);
+        getLatestPanel();
     }
 
-    public void setTurn(boolean turn){
+    public void setTurn(boolean turn) {
         this.turn = turn;
     }
 
@@ -142,34 +144,31 @@ public abstract class User {
     public User getNextUser() {
         return nextUser;
     }
-    public boolean checkValid(Card card)
-    {
+
+    public boolean checkValid(Card card) {
         Card prevCard = Game.prevCard;
         System.out.println(prevCard.toString());
         System.out.println(card.toString());
-       
-        if(card.getColor() ==prevCard.getColor())
-        {
+
+        if (card.getColor() == prevCard.getColor()) {
             return true;
         }
-        if(card.getRank() == prevCard.getRank())
-        {
+        if (card.getRank() == prevCard.getRank()) {
             return true;
         }
-        if(card.getColor() == null)
-        {
+        if (card.getColor() == null) {
             return true;
         }
         return false;
     }
     // public void suggestedCards()
     // {
-    //     for (Card card : cards) {
-    //         if(checkValid(card)==true)
-    //         {
-    //             card.suggestedEffect();
-    //         }
-    //     }
+    // for (Card card : cards) {
+    // if(checkValid(card)==true)
+    // {
+    // card.suggestedEffect();
+    // }
+    // }
     // }
 
 }

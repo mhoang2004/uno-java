@@ -1,6 +1,7 @@
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import java.awt.*;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -16,6 +17,7 @@ public class Card extends JLabel implements MouseListener {
 
     private User user; // ai gui la bai nay
     // BACK CARD
+
     Card() {
         super();
         color = null;
@@ -84,22 +86,28 @@ public class Card extends JLabel implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         // TODO check valid card
-        if(!user.checkValid(this))
-        {
-            return ;
+        if (!user.checkValid(this)) {
+            return;
         }
         // if success
         // if (Game.turn == 0) {
-        //     user.hitCard(this);
-        //     Game.turn = (Game.turn+1)%4;
+        // user.hitCard(this);
+        // Game.turn = (Game.turn+1)%4;
         // }
+
         if (user.getTurn() == true) {
             user.hitCard(this);
             user.getNextUser().setTurn(true);
             user.setTurn(false);
-            Game.computerPlayed();
+
+            Timer timer = new Timer(2000, new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    Game.computerPlayed();
+                    ((Timer) e.getSource()).stop();
+                }
+            });
+            timer.start();
         }
-        // System.out.println(Game.turn);
     }
 
     @Override
