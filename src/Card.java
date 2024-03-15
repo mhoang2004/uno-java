@@ -62,7 +62,7 @@ public class Card extends JLabel implements MouseListener {
         this.setIcon(card.getIcon());
     }
 
-    private Boolean isSpecial() {
+    public Boolean isSpecial() {
         if (rank.length() > 1)
             return true;
         return false;
@@ -84,7 +84,10 @@ public class Card extends JLabel implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         // TODO check valid card
-
+        if(!user.checkValid(this))
+        {
+            return ;
+        }
         // if success
         // if (Game.turn == 0) {
         //     user.hitCard(this);

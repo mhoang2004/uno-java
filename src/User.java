@@ -142,5 +142,34 @@ public abstract class User {
     public User getNextUser() {
         return nextUser;
     }
+    public boolean checkValid(Card card)
+    {
+        Card prevCard = Game.prevCard;
+        System.out.println(prevCard.toString());
+        System.out.println(card.toString());
+       
+        if(card.getColor() ==prevCard.getColor())
+        {
+            return true;
+        }
+        if(card.getRank() == prevCard.getRank())
+        {
+            return true;
+        }
+        if(card.getColor() == null)
+        {
+            return true;
+        }
+        return false;
+    }
+    // public void suggestedCards()
+    // {
+    //     for (Card card : cards) {
+    //         if(checkValid(card)==true)
+    //         {
+    //             card.suggestedEffect();
+    //         }
+    //     }
+    // }
 
 }

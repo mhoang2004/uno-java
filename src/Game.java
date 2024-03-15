@@ -75,15 +75,6 @@ class Game {
             playerButton.setUnoClicked();
         }
     }
-
-    public static void suggestedCards() {
-        for (Card card : player.cards) {
-            if(prevCard.getColor() == card.getColor() || prevCard.getRank() == card.getRank()) {
-                card.suggestedEffect();
-            }
-        }
-    }
-
     public boolean gameEnd() {
         if (player.getCards().size() == 0 || com.get(0).getCards().size() == 0 || com.get(1).getCards().size() == 0 || com.get(2).getCards().size() == 0) {
             return true;
@@ -100,7 +91,8 @@ class Game {
                 System.out.println(com.get(0).getCards().get(i));
             }
         }
-        suggestedCards();
+      
+        
         computer1Played();
     }
 
@@ -113,8 +105,6 @@ class Game {
                 System.out.println(com.get(1).getCards().get(i));
             }
         }
-        suggestedCards();
-        computer2Played();
     }
 
     public static void computer2Played() {
@@ -126,11 +116,9 @@ class Game {
                 System.out.println(com.get(2).getCards().get(i));
             }
         }
-        suggestedCards();
     }
     public void update() {
             checkUno();
-            suggestedCards();
             System.out.println("runnnnnnn");
             System.out.println("--------Com1 card-------");
             for(int i=0; i<com.get(0).getCards().size(); i++) {
