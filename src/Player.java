@@ -15,7 +15,14 @@ public class Player extends User {
             card.addMouseListener(card);
             card.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         }
-        //suggestedCards();
+        // suggestedCards();
+    }
+
+    public void playerHitCard(Card card) {
+        // animation
+        // card.setLocation(card.getX(), card.getY());
+
+        hitCard(card);
     }
 
     public void getLatestPanel() {

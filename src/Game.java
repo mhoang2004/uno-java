@@ -16,6 +16,8 @@ class Game {
     static ArrayList<Computer> com;
     private MyFrame frame;
 
+    JPanel mainPanel;
+
     final int COMPUTER_NUM = 3; // 0 < x < 4
 
     static Player player;
@@ -23,7 +25,14 @@ class Game {
     static boolean reverse;
 
     Game() {
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new BorderLayout());
+        mainPanel.setBounds(0, 0, MyFrame.WIDTH, MyFrame.HEIGHT);
+        mainPanel.setBackground(new Color(3, 104, 63));
+
         frame = new MyFrame();
+        frame.add(mainPanel);
+
         deck = new Deck();
 
         player = new Player(deck);
@@ -35,6 +44,7 @@ class Game {
         com.add(com1);
         com.add(com2);
         com.add(com3);
+
         // set next user
         com.get(0).setNextUser(com2);
         com2.setNextUser(com3);
@@ -60,11 +70,11 @@ class Game {
         center.add(playerButton);
         playerButton.addMouseListener(playerButton);
 
-        frame.add(player.getPanel(), BorderLayout.SOUTH);
-        frame.add(com.get(0).getPanel(), BorderLayout.WEST);
-        frame.add(com.get(1).getPanel(), BorderLayout.NORTH);
-        frame.add(com.get(2).getPanel(), BorderLayout.EAST);
-        frame.add(center, BorderLayout.CENTER);
+        mainPanel.add(player.getPanel(), BorderLayout.SOUTH);
+        mainPanel.add(com.get(0).getPanel(), BorderLayout.WEST);
+        mainPanel.add(com.get(1).getPanel(), BorderLayout.NORTH);
+        mainPanel.add(com.get(2).getPanel(), BorderLayout.EAST);
+        mainPanel.add(center, BorderLayout.CENTER);
 
         frame.setLocationRelativeTo(null); // Center the frame on the screen
         frame.setVisible(true);
@@ -126,8 +136,7 @@ class Game {
                 }
             });
             timer.start();
-        }
-        else if (Game.reverse == false) {
+        } else if (Game.reverse == false) {
             Timer timer = new Timer(2000, new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     computerPlayed();

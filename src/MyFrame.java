@@ -14,7 +14,7 @@ public class MyFrame extends JFrame {
         this.setSize(WIDTH, HEIGHT); // x-dimension and y-dimension
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exit out of application
         this.setResizable(false);
-        this.setLayout(new BorderLayout());
+        this.setLayout(null);
 
         // change the logo
         ImageIcon image = new ImageIcon("../resources/images/logo.png");

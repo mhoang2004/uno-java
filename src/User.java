@@ -46,13 +46,17 @@ public abstract class User {
     public void hitCard(Card card) {
         Game.prevCard.assignCard(card);
 
+        // TODO animation
+        // card.setLocation(0, 0);
+
         cards.remove(card);
         panel.removeAll();
 
         // panel.revalidate();
-        panel.repaint();
 
-        getLatestPanel();
+        panel.repaint(); // clear all card
+
+        getLatestPanel(); // repaint
     }
 
     public void sortCard() {
@@ -126,6 +130,9 @@ public abstract class User {
     public void drawCard(Deck deck) {
         Card card = deck.getOneCard();
         cards.add(card);
+
+        panel.removeAll();
+        panel.repaint(); // clear all card
         getLatestPanel();
     }
 

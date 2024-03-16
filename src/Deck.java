@@ -5,7 +5,7 @@ public class Deck {
     // 10: skip, 11: reverse, 12: drawtwo
     static final String[] ranks = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "DRAWTWO", "REVERSE", "SKIP" };
     static final String[] colors = { "B", "G", "Y", "R" };
-
+    
     private ArrayList<Card> deck;
 
     Deck() {

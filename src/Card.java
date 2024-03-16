@@ -85,10 +85,10 @@ public class Card extends JLabel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // TODO check valid card
         if (!user.checkValid(this)) {
             return;
         }
+
         // if success
         // if (Game.turn == 0) {
         // user.hitCard(this);
@@ -97,7 +97,7 @@ public class Card extends JLabel implements MouseListener {
 
         if (user.getTurn() == true) {
             user.hitCard(this);
-            
+
             // REVERSE
             if (Game.prevCard.getRank() == "REVERSE") {
                 Game.reverse();
@@ -112,8 +112,7 @@ public class Card extends JLabel implements MouseListener {
                     }
                 });
                 timer.start();
-            }
-            else if (Game.reverse == false) {
+            } else if (Game.reverse == false) {
                 Timer timer = new Timer(2000, new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         Game.computer2Played();
