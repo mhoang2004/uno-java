@@ -73,7 +73,11 @@ public class Card extends JLabel implements MouseListener {
     public String getColor() {
         return color;
     }
-
+    public void setColor (String color)
+    {
+        this.color = color;
+        this.rank = null;
+    }
     public String getRank() {
         return rank;
     }
@@ -97,6 +101,18 @@ public class Card extends JLabel implements MouseListener {
 
         if (user.getTurn() == true) {
             user.hitCard(this);
+            if(Game.prevCard.getColor()=="B")
+            {
+                Game.frame.setBackground(new Color(0,0,255));
+            }else if(Game.prevCard.getColor()=="R")
+            {
+                Game.frame.setBackground(new Color(255, 0, 0));
+            }else if(Game.prevCard.getColor()=="Y")
+            {
+                Game.frame.setBackground(new Color(255, 0, 0));
+            }else{
+
+            }
             
             // REVERSE
             if (Game.prevCard.getRank() == "REVERSE") {

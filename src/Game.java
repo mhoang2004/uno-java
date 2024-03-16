@@ -14,7 +14,7 @@ class Game {
     static Deck deck;
     static ButtonUno playerButton;
     static ArrayList<Computer> com;
-    private MyFrame frame;
+    public static MyFrame frame;
 
     final int COMPUTER_NUM = 3; // 0 < x < 4
 
@@ -43,6 +43,10 @@ class Game {
 
         playerButton = new ButtonUno("player");
         prevCard = deck.getOneCard();
+        while (prevCard.getColor()==null)
+        {
+            prevCard = deck.getOneCard(); 
+        }
         reverse = true; // chieu kim dong ho
     }
 
@@ -178,9 +182,9 @@ class Game {
     public void update() {
         checkUno();
         System.out.println("runnnnnnn");
-        System.out.println("--------Com1 card-------");
-        for (int i = 0; i < com.get(0).getCards().size(); i++) {
-            System.out.println(com.get(0).getCards().get(i));
+        System.out.println("--------Player card-------");
+        for (int i = 0; i < player.getCards().size(); i++) {
+            System.out.println(player.getCards().get(i));
         }
         player.setTurn(true);
         System.out.println("prevCard = " + prevCard);
