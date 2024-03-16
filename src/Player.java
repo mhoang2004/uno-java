@@ -16,7 +16,6 @@ public class Player extends User {
             card.addMouseListener(card);
             card.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         }
-<<<<<<< HEAD
         // suggestedCards();
     }
 
@@ -25,10 +24,6 @@ public class Player extends User {
         // card.setLocation(card.getX(), card.getY());
 
         hitCard(card);
-=======
-        
-        //suggestedCards();
->>>>>>> 1e8bd7062bc6b09341eddbfce7024d8925e77914
     }
 
     public void getLatestPanel() {
