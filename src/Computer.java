@@ -44,6 +44,12 @@ public class Computer extends User {
     } 
 
     public Card selectedCard() {
+        // Test
+        // for(Card card : cards) {
+        //         if (card.getRank() == "REVERSE")
+        //             return card;
+        // }
+
         for(Card card : cards) {
             if(card.getColor() == Game.prevCard.getColor()) {
                 if (card.getRank().length() == 1)
@@ -80,8 +86,8 @@ public class Computer extends User {
             this.drawCard(deck);
         } 
         System.out.println("prevCard = " + Game.prevCard);
-        this.nextUser.setTurn(true);
-        this.setTurn(false);
+        // this.nextUser.setTurn(true);
+        // this.setTurn(false);
     }
         
 }

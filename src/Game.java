@@ -112,6 +112,8 @@ class Game {
         if (Game.prevCard.getRank() == "REVERSE") {
             Game.reverse();
         }
+        com.get(0).nextUser.setTurn(true);
+        com.get(0).setTurn(false);
         if (Game.reverse == true) {
             Timer timer = new Timer(2000, new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -132,6 +134,8 @@ class Game {
         if (Game.prevCard.getRank() == "REVERSE") {
             Game.reverse();
         }
+        com.get(1).nextUser.setTurn(true);
+        com.get(1).setTurn(false);
         if (Game.reverse == true) {
             Timer timer = new Timer(2000, new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -160,6 +164,8 @@ class Game {
         if (Game.prevCard.getRank() == "REVERSE") {
             Game.reverse();
         }
+        com.get(2).nextUser.setTurn(true);
+        com.get(2).setTurn(false);
         if (Game.reverse == false) {
             Timer timer = new Timer(2000, new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -190,7 +196,7 @@ class Game {
 
     public void update() {
         checkUno();
-        System.out.println("runnnnnnn");
+        System.out.println("runn");
         System.out.println("--------Player card-------");
         for (int i = 0; i < player.getCards().size(); i++) {
             System.out.println(player.getCards().get(i));
