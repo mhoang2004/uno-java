@@ -1,9 +1,18 @@
 import java.awt.Dimension;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 
-public abstract class User {
+public abstract class User  {
     static final int INIT_CARD = 7;
     static final int GAP_CARD_HORIZONTAL = 50; // 50px gap each card
     static final int GAP_CARD_VERTICAL = 20;
@@ -12,7 +21,6 @@ public abstract class User {
     protected JLayeredPane panel;
     protected User nextUser;
     protected boolean turn;
-
     User(Deck deck) {
         cards = new ArrayList<Card>();
         // JLayeredPane = Swing container that provides a third dimension for
@@ -24,13 +32,19 @@ public abstract class User {
         // preferred size exactly.
         panel.setPreferredSize(new Dimension(Card.WIDTH, Card.HEIGHT + GAP_CARD_VERTICAL));
         panel.setLayout(null);
-
-        for (int i = 0; i < INIT_CARD; i++) {
+        //test
+        // for (Card card : deck.getDeck()) {
+        //     if(card.isSpecial())
+        //     {
+        //         cards.set(0, card);
+        //     }
+        // }
+        for (int i = 1; i < INIT_CARD; i++) {
             Card card = deck.getOneCard();
             card.setUser(this); // set user
             cards.add(card);
         }
-
+        sortCard();
         // System.out.println("-------------------------TRƯỚC KHI
         // SORT----------------");
         // for (Card card : cards) {
@@ -164,18 +178,24 @@ public abstract class User {
             return true;
         }
         if (card.getColor() == null) {
+            //Game.frame.setVisible(false);
+            //logic chose color was fail :<<<<<<<
+            choseColorFrame myFrame = new choseColorFrame();
+            myFrame.addWindowListener(new WindowAdapter() {
+                public void windowClosing(WindowEvent e) {
+                    // Khi frame mới đóng, hiển thị lại frame cũ
+                    Game.frame.setVisible(true);
+                    myFrame.dispose();
+                }
+            });
             return true;
         }
         return false;
     }
-    // public void suggestedCards()
-    // {
-    // for (Card card : cards) {
-    // if(checkValid(card)==true)
-    // {
-    // card.suggestedEffect();
-    // }
-    // }
-    // }
-
+    //fail
+    public void setColorPrevCard(String color)
+    {
+        
+        Game.prevCard.setColor(color);
+    }
 }

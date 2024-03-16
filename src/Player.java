@@ -1,5 +1,6 @@
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 import javax.swing.JLayeredPane;
@@ -15,6 +16,7 @@ public class Player extends User {
             card.addMouseListener(card);
             card.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         }
+<<<<<<< HEAD
         // suggestedCards();
     }
 
@@ -23,6 +25,10 @@ public class Player extends User {
         // card.setLocation(card.getX(), card.getY());
 
         hitCard(card);
+=======
+        
+        //suggestedCards();
+>>>>>>> 1e8bd7062bc6b09341eddbfce7024d8925e77914
     }
 
     public void getLatestPanel() {
@@ -45,4 +51,5 @@ public class Player extends User {
         }
         panel.repaint();
     }
+
 }
