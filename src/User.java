@@ -28,6 +28,7 @@ public abstract class User  {
         panel = new JLayeredPane();
         // turn
         turn = false;
+
         // using setPreferredSize() no guarantee that the layout manager will honor the
         // preferred size exactly.
         panel.setPreferredSize(new Dimension(Card.WIDTH, Card.HEIGHT + GAP_CARD_VERTICAL));
@@ -39,11 +40,30 @@ public abstract class User  {
         //         cards.set(0, card);
         //     }
         // }
-        for (int i = 1; i < INIT_CARD; i++) {
+
+        for (int i = 0; i < INIT_CARD; i++) {
             Card card = deck.getOneCard();
             card.setUser(this); // set user
             cards.add(card);
         }
+        // TEST SKIP
+        // for (int i = 0; i < INIT_CARD; i++) {
+        //     Card card = new Card("B", "SKIP");
+        //     card.setUser(this); // set user
+        //     cards.add(card);
+        // }
+        // TEST +2, +4
+        // for (int i = 0; i <= 3; i++) {
+        //     Card card = new Card("B", "SKIP");
+        //     card.setUser(this); // set user
+        //     cards.add(card);
+        // }
+        // for (int i = 4; i < INIT_CARD; i++) {
+        //     Card card = new Card("B", "3");
+        //     card.setUser(this); // set user
+        //     cards.add(card);
+        // }
+
         sortCard();
         // System.out.println("-------------------------TRƯỚC KHI
         // SORT----------------");
@@ -141,8 +161,8 @@ public abstract class User  {
         return panel;
     }
 
-    public void drawCard(Deck deck) {
-        Card card = deck.getOneCard();
+    public void drawCard() {
+        Card card = Game.deck.getOneCard();
         cards.add(card);
 
         panel.removeAll();
@@ -198,4 +218,74 @@ public abstract class User  {
         
         Game.prevCard.setColor(color);
     }
+
+    // choose color
+    public String chooseColor() {
+    choseColorFrame myFrame = new choseColorFrame();
+        myFrame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                // Khi frame mới đóng, hiển thị lại frame cũ
+                Game.frame.setVisible(true);
+                myFrame.dispose();
+            }
+        });
+        return "B";
+    }
+
+    public void passTurn() {
+        this.getNextUser().setTurn(false);
+        this.setTurn(false);
+        this.getNextUser().getNextUser().setTurn(true);
+    }
+
+    // public void prevDrawCard() {
+    //     this.getNextUser().getNextUser().getNextUser().drawCard();
+    // }
+
+    public void skip() {
+        if (Game.prevCard.getRank() == "SKIP") {
+            this.passTurn();
+        }
+        else if(Game.prevCard.getRank() == "DRAWTWO") {
+            this.getNextUser().drawCard(); 
+            this.getNextUser().drawCard(); 
+            this.passTurn();
+        }
+        else if(Game.prevCard.getRank() == "DRAWFOUR") {
+            this.getNextUser().drawCard(); 
+            this.getNextUser().drawCard(); 
+            this.getNextUser().drawCard(); 
+            this.getNextUser().drawCard(); 
+            this.passTurn();
+            Game.prevCard.setColor(chooseColor());
+        }
+    }
+    public void wild() {
+        if (Game.prevCard.getRank() == "WILD") {
+            Game.prevCard.setColor(chooseColor());
+            Game.prevCard.setRank(null);
+        }
+    }
+    // public boolean checkDrawTwo() {
+    //     boolean flag = false;
+    //     if(Game.prevCard.getRank() == "DRAWTWO") {
+    //         this.drawCard(); 
+    //         this.drawCard(); 
+    //         flag = true;
+    //     }
+    //     return flag;
+    // }
+    // public boolean checkDrawFour() {
+    //     boolean flag = false;
+    //     if(Game.prevCard.getRank() == "DRAWFOUR") {
+    //         chooseColor();
+    //         this.drawCard(); 
+    //         this.drawCard(); 
+    //         this.drawCard(); 
+    //         this.drawCard(); 
+    //         flag = true;
+    //         Game.prevCard.setColor(chooseColor());
+    //     }
+    //     return flag;
+    // }
 }

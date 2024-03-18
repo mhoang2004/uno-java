@@ -44,9 +44,15 @@ public class Computer extends User {
     } 
 
     public Card selectedCard() {
-        // Test
+        // Test reverse
         // for(Card card : cards) {
         //         if (card.getRank() == "REVERSE")
+        //             return card;
+        // }
+
+        //Test skip
+        // for(Card card : cards) {
+        //         if (card.getRank() == "SKIP")
         //             return card;
         // }
 
@@ -58,6 +64,11 @@ public class Computer extends User {
         }
         for(Card card : cards) {
             if (card.getRank() == Game.prevCard.getRank()) {
+                return card;
+            }
+        }
+        for(Card card : cards) {
+            if (card.getColor() == Game.prevCard.getColor()) {
                 return card;
             }
         }
@@ -74,7 +85,19 @@ public class Computer extends User {
         return null;
     }
 
-    public void ComputerHitCard(Deck deck) {
+    public void ComputerHitCard() {
+        // if (this.checkDrawTwo()) {
+        //     if (selectedCard().getRank() != "DRAWTWO") {
+        //         this.checkDrawTwo();
+        //         return;
+        //     }
+        // }
+        // if (this.checkDrawFour()) {
+        //     if (selectedCard().getRank() != "DRAWFOUR") {
+        //         this.checkDrawTwo();
+        //         return;
+        //     }
+        // }
         Card selectedCard;
         selectedCard = this.selectedCard();
         System.out.println("selectedCard = " + selectedCard);
@@ -82,9 +105,6 @@ public class Computer extends User {
             // Game.prevCard = selectedCard;
             this.hitCard(selectedCard);
         }
-        else {
-            this.drawCard(deck);
-        } 
         System.out.println("prevCard = " + Game.prevCard);
         // this.nextUser.setTurn(true);
         // this.setTurn(false);

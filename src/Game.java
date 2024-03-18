@@ -23,7 +23,6 @@ class Game {
     static Player player;
 
     static boolean reverse;
-
     Game() {
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
@@ -52,11 +51,15 @@ class Game {
         player.setNextUser(com.get(0));
 
         playerButton = new ButtonUno("player");
+        // Test 
+        //prevCard = new Card("B", "6");
+
         prevCard = deck.getOneCard();
         while (prevCard.getColor()==null)
         {
             prevCard = deck.getOneCard(); 
         }
+
         reverse = true; // chieu kim dong ho
     }
 
@@ -88,7 +91,7 @@ class Game {
         if (playerButton.getUnoClicked() == true) {
             System.out.println("check uno");
             if (player.getCards().size() != 1) {
-                player.drawCard(deck);
+                player.drawCard();
             }
             playerButton.setUnoClicked();
         }
@@ -102,18 +105,60 @@ class Game {
         return false;
     }
 
+    public static boolean checkSkip() {
+        if (Game.prevCard.getRank() == "SKIP") {
+            return true;
+        }
+        else if(Game.prevCard.getRank() == "DRAWTWO") {
+            return true;
+        }
+        else if(Game.prevCard.getRank() == "DRAWFOUR") {
+            return true;
+        }
+        return false;
+    }
+    
+    public static boolean checkWild() {
+        if (Game.prevCard.getRank() == "WILD") {
+            return true;
+        }
+        else return false;
+    }
+
     public static void computerPlayed() {
-        System.out.println("com0" + com.get(0).getTurn());
+        System.out.println("com0 " + com.get(0).getTurn());
+        
         if (com.get(0).getTurn() == true) {
-            System.out.println("--------Com1 card-------");
-            com.get(0).ComputerHitCard(deck);
+            if (checkWild()) {
+                com.get(0).wild();
+            }
+            System.out.println("--------Com0 card-------");
+            com.get(0).ComputerHitCard();
         }
         // REVERSE
         if (Game.prevCard.getRank() == "REVERSE") {
             Game.reverse();
         }
-        com.get(0).nextUser.setTurn(true);
-        com.get(0).setTurn(false);
+        if(!(checkSkip())) {
+            com.get(0).nextUser.setTurn(true);
+            com.get(0).setTurn(false);
+            if (com.get(0).selectedCard() == null) {
+                com.get(0).drawCard();
+            }
+        }
+        // SKIP
+        if (checkSkip()) {
+            com.get(0).skip();
+            Timer timer = new Timer(2000, new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    computer2Played();
+                    ((Timer) e.getSource()).stop();
+                }
+            });
+            timer.start();
+            return;
+        }
+
         if (Game.reverse == true) {
             Timer timer = new Timer(2000, new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -126,16 +171,31 @@ class Game {
     }
 
     public static void computer1Played() {
-        System.out.println("com1" + com.get(1).getTurn());
-        if (com.get(1).getTurn() == true) {
-            System.out.println("--------Com2 card-------");
-            com.get(1).ComputerHitCard(deck);
+        System.out.println("com1 " + com.get(1).getTurn());
+        if ((com.get(1).getTurn() == true)) {
+            if (checkWild()) {
+                com.get(1).wild();
+            }
+            System.out.println("--------Com1 card-------");
+            com.get(1).ComputerHitCard();
         }
+        //REVERSE
         if (Game.prevCard.getRank() == "REVERSE") {
             Game.reverse();
         }
-        com.get(1).nextUser.setTurn(true);
-        com.get(1).setTurn(false);
+        if(!checkSkip()) {
+            com.get(1).nextUser.setTurn(true);
+            com.get(1).setTurn(false);
+            if (com.get(1).selectedCard() == null) {
+                com.get(1).drawCard();
+            }
+        }
+        // SKIP
+        if (checkSkip()) {
+            com.get(1).skip();
+            return;
+        }
+        
         if (Game.reverse == true) {
             Timer timer = new Timer(2000, new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -156,16 +216,38 @@ class Game {
     }
 
     public static void computer2Played() {
-        System.out.println("com2" + com.get(2).getTurn());
-        if (com.get(2).getTurn() == true) {
-            System.out.println("--------Com3 card-------");
-            com.get(2).ComputerHitCard(deck);
+        System.out.println("com2 " + com.get(2).getTurn());
+        if ((com.get(2).getTurn() == true)) {
+            if (checkWild()) {
+                com.get(2).wild();
+            }
+            System.out.println("--------Com2 card-------");
+            com.get(2).ComputerHitCard();
         }
+        // REVERSE
         if (Game.prevCard.getRank() == "REVERSE") {
             Game.reverse();
         }
-        com.get(2).nextUser.setTurn(true);
-        com.get(2).setTurn(false);
+        if (!checkSkip()) {
+            com.get(2).nextUser.setTurn(true);
+            com.get(2).setTurn(false);
+            if (com.get(2).selectedCard() == null) {
+                com.get(2).drawCard();
+            }
+        }
+        // SKIP
+        if (checkSkip()) {
+            com.get(2).skip();
+            Timer timer = new Timer(2000, new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    computerPlayed();
+                    ((Timer) e.getSource()).stop();
+                }
+            });
+            timer.start();
+            return;
+        }
+        
         if (Game.reverse == false) {
             Timer timer = new Timer(2000, new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -177,6 +259,8 @@ class Game {
         }
     }
 
+    // SKIP
+    
     // REVERSE
     public static void reverse() {
         if (reverse == true) {

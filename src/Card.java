@@ -83,6 +83,10 @@ public class Card extends JLabel implements MouseListener {
         return rank;
     }
 
+    public void setRank(String rank) 
+    {
+        this.rank = rank;
+    }
     public void suggestedEffect() {
         Border border = new LineBorder(Color.YELLOW, 5);
         setBorder(border);
@@ -90,6 +94,7 @@ public class Card extends JLabel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        System.out.println("player" + user.getTurn());
         if (!user.checkValid(this)) {
             return;
         }
@@ -99,8 +104,24 @@ public class Card extends JLabel implements MouseListener {
         // user.hitCard(this);
         // Game.turn = (Game.turn+1)%4;
         // }
-
-        if (user.getTurn() == true) {
+        
+        if ((user.getTurn() == true)) {
+            if (Game.checkWild()) {
+                user.wild();
+            }
+            System.out.println("--------Player card-------");
+            // if (user.checkDrawTwo()) {
+            //     if (this.getRank() != "DRAWTWO") {
+            //         user.checkDrawTwo();
+            //         return;
+            //     }
+            // }
+            // if (user.checkDrawFour()) {
+            //     if (this.getRank() != "DRAWFOUR") {
+            //         user.checkDrawTwo();
+            //         return;
+            //     }
+            // }
             user.hitCard(this);
             if (Game.prevCard.getColor() == "B") {
                 Game.frame.setBackground(new Color(0, 0, 255));
@@ -111,30 +132,43 @@ public class Card extends JLabel implements MouseListener {
             } else {
 
             }
-
-            // REVERSE
-            if (Game.prevCard.getRank() == "REVERSE") {
-                Game.reverse();
-            }
+        }
+        // REVERSE
+        if (Game.prevCard.getRank() == "REVERSE") {
+            Game.reverse();
+        }
+        if (!Game.checkSkip()) {
             user.getNextUser().setTurn(true);
             user.setTurn(false);
-            if (Game.reverse == true) {
-                Timer timer = new Timer(2000, new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        Game.computerPlayed();
-                        ((Timer) e.getSource()).stop();
-                    }
-                });
-                timer.start();
-            } else if (Game.reverse == false) {
-                Timer timer = new Timer(2000, new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        Game.computer2Played();
-                        ((Timer) e.getSource()).stop();
-                    }
-                });
-                timer.start();
-            }
+        }
+        // SKIP
+        if (Game.checkSkip()) {
+            user.skip();
+            Timer timer = new Timer(2000, new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    Game.computer1Played();
+                    ((Timer) e.getSource()).stop();
+                }
+            });
+            timer.start();
+            return;
+        }
+        if (Game.reverse == true) {
+            Timer timer = new Timer(2000, new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    Game.computerPlayed();
+                    ((Timer) e.getSource()).stop();
+                }
+            });
+            timer.start();
+        } else if (Game.reverse == false) {
+            Timer timer = new Timer(2000, new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    Game.computer2Played();
+                    ((Timer) e.getSource()).stop();
+                }
+            });
+            timer.start();
         }
     }
 
