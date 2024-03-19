@@ -102,13 +102,10 @@ public class Card extends JLabel implements MouseListener {
             user.getNextUser().setTurn(true);
             user.setTurn(false);
             // choseColorFrame notiFrame = new choseColorFrame("VUI LÒNG RÚT BÀI");
+            Computer.selectedCard = false;
+            System.out.println("selectedCard = " + Computer.selectedCard);
+            System.out.println("prevCard = " + Game.prevCard);
         }
-        // if success
-        // if (Game.turn == 0) {
-        // user.hitCard(this);
-        // Game.turn = (Game.turn+1)%4;
-        // }
-        
         if ((user.getTurn() == true)) {
             
             if (this.getColor() == null)
@@ -132,6 +129,9 @@ public class Card extends JLabel implements MouseListener {
             //     }
             // }
             user.hitCard(this);
+            Computer.selectedCard = true;
+            System.out.println("selectedCard = " + Computer.selectedCard);
+            System.out.println("prevCard = " + Game.prevCard);
             if (Game.prevCard.getColor() == "B") {
                 Game.frame.setBackground(new Color(0, 0, 255));
             } else if (Game.prevCard.getColor() == "R") {
@@ -143,15 +143,13 @@ public class Card extends JLabel implements MouseListener {
             }
         }
         // REVERSE
-        if (Game.prevCard.getRank() == "REVERSE") {
+        if ((Game.prevCard.getRank() == "REVERSE") && (Computer.selectedCard != false)) {
             Game.reverse();
         }
-        if (!Game.checkSkip()) {
-            user.getNextUser().setTurn(true);
-            user.setTurn(false);
-        }
+        user.getNextUser().setTurn(true);
+        user.setTurn(false);
         // SKIP
-        if (Game.checkSkip()) {
+        if ((Game.checkSkip()) && (Computer.selectedCard != false)) {
             user.skip();
             Timer timer = new Timer(2000, new ActionListener() {
                 public void actionPerformed(ActionEvent e) {

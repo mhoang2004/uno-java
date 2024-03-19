@@ -13,6 +13,7 @@ public abstract class User  {
     protected JLayeredPane panel;
     protected User nextUser;
     protected boolean turn;
+    protected int count;
     User(Deck deck) {
         cards = new ArrayList<Card>();
         // JLayeredPane = Swing container that provides a third dimension for
@@ -164,6 +165,9 @@ public abstract class User  {
     }
 
     public Card drawCard() {
+        if (Game.deck.getDeck().size() == 0) {
+            System.out.println("Het bai roi cuu");
+        }
         Card card = Game.deck.getOneCard();
         card.addMouseListener(card);
         cards.add(card);
@@ -171,6 +175,8 @@ public abstract class User  {
         panel.removeAll();
         panel.repaint(); // clear all card
         getLatestPanel();
+        this.count++;
+        System.out.println("Draw card " + card);
         return card;
     }
 
@@ -190,11 +196,19 @@ public abstract class User  {
         return nextUser;
     }
 
+    public void setCount(int x) {
+        count = count + x;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
     public boolean checkValid(Card card) {
         Card prevCard = Game.prevCard;
-        for (Card card2 : cards) {
-            System.out.println(card2.toString());
-        }
+        // for (Card card2 : cards) {
+        //     System.out.println(card2.toString());
+        // }
         if (card.getColor() == prevCard.getColor()) {
             return true;
         }

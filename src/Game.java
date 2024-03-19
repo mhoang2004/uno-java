@@ -163,21 +163,26 @@ class Game {
                 com.get(0).wild();
             }
             System.out.println("--------Com0 card-------");
-            com.get(0).ComputerHitCard();
+            com.get(0).computerHitCard();
+            System.out.println("selectedCard = " + Computer.selectedCard);
+            System.out.println("prevCard = " + Game.prevCard);
+            System.out.println("count = " + com.get(0).getCount() + "  " + com.get(0).getCards().size());
         }
         // REVERSE
-        if (Game.prevCard.getRank() == "REVERSE") {
+        if ((Game.prevCard.getRank() == "REVERSE") && (Computer.selectedCard != false)) {
             Game.reverse();
         }
-        if(!(checkSkip())) {
-            com.get(0).nextUser.setTurn(true);
-            com.get(0).setTurn(false);
-            if (com.get(0).selectedCard() == null) {
-                com.get(0).drawCard();
-            }
+        com.get(0).nextUser.setTurn(true);
+        com.get(0).setTurn(false);
+        if (Computer.selectedCard == false) {
+            com.get(0).drawCard();
+            com.get(0).computerHitCard();
+            System.out.println("selectedCard = " + Computer.selectedCard);
+            System.out.println("prevCard = " + Game.prevCard);
+            System.out.println("count = " + com.get(0).getCount() + "  " + com.get(0).getCards().size());
         }
         // SKIP
-        if (checkSkip()) {
+        if ((checkSkip()) && (Computer.selectedCard != false)) {
             com.get(0).skip();
             Timer timer = new Timer(2000, new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -209,22 +214,33 @@ class Game {
                 com.get(1).wild();
             }
             System.out.println("--------Com1 card-------");
-            com.get(1).ComputerHitCard();
+            com.get(1).computerHitCard();
+            System.out.println("selectedCard = " + Computer.selectedCard);
+            System.out.println("prevCard = " + Game.prevCard);
+            System.out.println("count = " + com.get(1).getCount() + "  " + com.get(1).getCards().size());
         }
         //REVERSE
-        if (Game.prevCard.getRank() == "REVERSE") {
+        if ((Game.prevCard.getRank() == "REVERSE") && (Computer.selectedCard != false)) {
             Game.reverse();
         }
-        if(!checkSkip()) {
-            com.get(1).nextUser.setTurn(true);
-            com.get(1).setTurn(false);
-            if (com.get(1).selectedCard() == null) {
+        com.get(1).nextUser.setTurn(true);
+        com.get(1).setTurn(false);
+            if (Computer.selectedCard == false) {
                 com.get(1).drawCard();
+                com.get(1).computerHitCard();
+                System.out.println("selectedCard = " + Computer.selectedCard);
+                System.out.println("prevCard = " + Game.prevCard);
+                System.out.println("count = " + com.get(1).getCount() + "  " + com.get(1).getCards().size());
             }
-        }
         // SKIP
-        if (checkSkip()) {
+        if ((checkSkip()) && (Computer.selectedCard != false)) {
             com.get(1).skip();
+            if (Game.reverse == true ) {
+                checkSkipAndDraw(com.get(0));
+            }
+            else {
+                checkSkipAndDraw(com.get(2));
+            }
             return;
         }
         
@@ -254,21 +270,26 @@ class Game {
                 com.get(2).wild();
             }
             System.out.println("--------Com2 card-------");
-            com.get(2).ComputerHitCard();
+            com.get(2).computerHitCard();
+            System.out.println("selectedCard = " + Computer.selectedCard);
+            System.out.println("prevCard = " + Game.prevCard);
+            System.out.println("count = " + com.get(2).getCount() + "  " + com.get(2).getCards().size());
         }
         // REVERSE
-        if (Game.prevCard.getRank() == "REVERSE") {
+        if ((Game.prevCard.getRank() == "REVERSE") && (Computer.selectedCard != false)) {
             Game.reverse();
         }
-        if (!checkSkip()) {
-            com.get(2).nextUser.setTurn(true);
-            com.get(2).setTurn(false);
-            if (com.get(2).selectedCard() == null) {
+        com.get(2).nextUser.setTurn(true);
+        com.get(2).setTurn(false);
+            if (Computer.selectedCard == false) {
                 com.get(2).drawCard();
+                com.get(2).computerHitCard();
+                System.out.println("selectedCard = " + Computer.selectedCard);
+                System.out.println("prevCard = " + Game.prevCard);
+                System.out.println("count = " + com.get(2).getCount() + "  " + com.get(2).getCards().size());
             }
-        }
         // SKIP
-        if (checkSkip()) {
+        if ((checkSkip()) && (Computer.selectedCard != false)) {
             com.get(2).skip();
             Timer timer = new Timer(2000, new ActionListener() {
                 public void actionPerformed(ActionEvent e) {

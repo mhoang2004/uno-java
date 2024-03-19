@@ -4,6 +4,7 @@ import javax.swing.JLayeredPane;
 
 public class Computer extends User {
     private String position;
+    static boolean selectedCard = false;
     public String getPos()
     {
         return position;
@@ -11,6 +12,7 @@ public class Computer extends User {
     Computer(Deck deck, String position) {
         super(deck);
         this.position = position;
+        this.count = 7;
         this.getLatestPanel();
     }
 
@@ -46,7 +48,7 @@ public class Computer extends User {
 
     } 
 
-    public Card selectedCard() {
+    public void computerHitCard() {
         // Test reverse
         // for(Card card : cards) {
         //         if (card.getRank() == "REVERSE")
@@ -58,59 +60,72 @@ public class Computer extends User {
         //         if (card.getRank() == "SKIP")
         //             return card;
         // }
-
+        Computer.selectedCard = false;
         for(Card card : cards) {
             if(card.getColor() == Game.prevCard.getColor()) {
-                if (card.getRank().length() == 1)
-                    return card;
+                if (card.getRank().length() == 1){
+                    this.hitCard(card);
+                    Computer.selectedCard = true;
+                    this.count--;
+                    return;
+                }
             }
-        }
+        }            
         for(Card card : cards) {
             if (card.getRank() == Game.prevCard.getRank()) {
-                return card;
+                this.hitCard(card);
+                Computer.selectedCard = true;
+                this.count--;
+                return;
             }
         }
         for(Card card : cards) {
             if (card.getColor() == Game.prevCard.getColor()) {
-                return card;
+                this.hitCard(card);
+                Computer.selectedCard = true;
+                this.count--;
+                return;
             }
         }
         for(Card card : cards) {
             if (card.getRank() == "WILD") {
-                return card;
+                this.hitCard(card);
+                Computer.selectedCard = true;
+                this.count--;
+                return;
             }
         }
         for(Card card : cards) {
             if (card.getRank() == "DRAWFOUR") {
-                return card;
+                this.hitCard(card);
+                Computer.selectedCard = true;
+                this.count--;
+                return;
             }
         }
-        return null;
     }
 
-    public void ComputerHitCard() {
-        // if (this.checkDrawTwo()) {
-        //     if (selectedCard().getRank() != "DRAWTWO") {
-        //         this.checkDrawTwo();
-        //         return;
-        //     }
-        // }
-        // if (this.checkDrawFour()) {
-        //     if (selectedCard().getRank() != "DRAWFOUR") {
-        //         this.checkDrawTwo();
-        //         return;
-        //     }
-        // }
-        Card selectedCard;
-        selectedCard = this.selectedCard();
-        System.out.println("selectedCard = " + selectedCard);
-        if (selectedCard != null) {
-            // Game.prevCard = selectedCard;
-            this.hitCard(selectedCard);
-        }
-        System.out.println("prevCard = " + Game.prevCard);
+    // public void ComputerHitCard() {
+    //     // if (this.checkDrawTwo()) {
+    //     //     if (selectedCard().getRank() != "DRAWTWO") {
+    //     //         this.checkDrawTwo();
+    //     //         return;
+    //     //     }
+    //     // }
+    //     // if (this.checkDrawFour()) {
+    //     //     if (selectedCard().getRank() != "DRAWFOUR") {
+    //     //         this.checkDrawTwo();
+    //     //         return;
+    //     //     }
+    //     // }
+        
+    //     if (Computer.selectedCard != null) {
+    //         // Game.prevCard = selectedCard;
+    //         this.selectedCard();
+            
+    //     }
+        
         // this.nextUser.setTurn(true);
         // this.setTurn(false);
-    }
-        
 }
+    
