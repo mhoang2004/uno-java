@@ -4,7 +4,10 @@ import javax.swing.JLayeredPane;
 
 public class Computer extends User {
     private String position;
-
+    public String getPos()
+    {
+        return position;
+    }
     Computer(Deck deck, String position) {
         super(deck);
         this.position = position;

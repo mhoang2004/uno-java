@@ -14,7 +14,6 @@ public class ButtonUno extends JLabel implements MouseListener {
 
     ButtonUno(String button) {
         super();
-
         this.button = button;   
         this.unoClicked = false;
         // get button

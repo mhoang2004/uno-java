@@ -1,15 +1,7 @@
 import java.awt.Dimension;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 
 public abstract class User  {
@@ -150,7 +142,17 @@ public abstract class User  {
     public int size() {
         return cards.size();
     }
-
+    public boolean checkCard ()
+    {
+        for (Card card : cards) {
+            if(checkValid(card)== true){
+                System.out.println("true");
+                return true;
+            }
+        }
+        System.out.println("false");
+        return false;
+    }
     public abstract void getLatestPanel();
 
     public ArrayList<Card> getCards() {
@@ -161,13 +163,15 @@ public abstract class User  {
         return panel;
     }
 
-    public void drawCard() {
+    public Card drawCard() {
         Card card = Game.deck.getOneCard();
+        card.addMouseListener(card);
         cards.add(card);
-
+        card.setUser(this);
         panel.removeAll();
         panel.repaint(); // clear all card
         getLatestPanel();
+        return card;
     }
 
     public void setTurn(boolean turn) {
@@ -188,9 +192,9 @@ public abstract class User  {
 
     public boolean checkValid(Card card) {
         Card prevCard = Game.prevCard;
-        System.out.println(prevCard.toString());
-        System.out.println(card.toString());
-
+        for (Card card2 : cards) {
+            System.out.println(card2.toString());
+        }
         if (card.getColor() == prevCard.getColor()) {
             return true;
         }
@@ -198,16 +202,6 @@ public abstract class User  {
             return true;
         }
         if (card.getColor() == null) {
-            //Game.frame.setVisible(false);
-            //logic chose color was fail :<<<<<<<
-            choseColorFrame myFrame = new choseColorFrame();
-            myFrame.addWindowListener(new WindowAdapter() {
-                public void windowClosing(WindowEvent e) {
-                    // Khi frame mới đóng, hiển thị lại frame cũ
-                    Game.frame.setVisible(true);
-                    myFrame.dispose();
-                }
-            });
             return true;
         }
         return false;
@@ -257,7 +251,7 @@ public abstract class User  {
             this.getNextUser().drawCard(); 
             this.getNextUser().drawCard(); 
             this.passTurn();
-            Game.prevCard.setColor(chooseColor());
+          Game.prevCard.setColor(chooseColor());
         }
     }
     public void wild() {

@@ -23,6 +23,7 @@ class Game {
     static Player player;
 
     static boolean reverse;
+    
     Game() {
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
@@ -32,8 +33,8 @@ class Game {
         frame = new MyFrame();
         frame.add(mainPanel);
 
+       
         deck = new Deck();
-
         player = new Player(deck);
 
         com = new ArrayList<>();
@@ -50,29 +51,41 @@ class Game {
         com3.setNextUser(player);
         player.setNextUser(com.get(0));
 
+   
         playerButton = new ButtonUno("player");
-        // Test 
-        //prevCard = new Card("B", "6");
 
         prevCard = deck.getOneCard();
         while (prevCard.getColor()==null)
         {
             prevCard = deck.getOneCard(); 
         }
-
+        // testGame();
         reverse = true; // chieu kim dong ho
     }
-
+    // @SuppressWarnings("unused")
+    static public void  testGame()
+    {
+        while (true)
+        {
+            for (Card card : player.getCards()) {
+                if(card.getColor() ==prevCard.getColor())
+                {
+                    prevCard = deck.getOneCard(); 
+                }
+            }
+            
+        } 
+    }
     public void render() {
         JPanel center = new JPanel();
         center.setLayout(new GridLayout(1, 2, 10, 10));
         center.setBackground(new Color(3, 104, 63));
 
         // deck
-        Card backCard = new Card();
-        center.add(backCard);
+        // Card backCard = new Card();
+        center.add(deck);
         center.add(prevCard);
-
+        deck.addMouseListener(deck);
         // button
         center.add(playerButton);
         playerButton.addMouseListener(playerButton);
@@ -86,7 +99,24 @@ class Game {
         frame.setLocationRelativeTo(null); // Center the frame on the screen
         frame.setVisible(true);
     }
+    public static void checkSkipAndDraw(Computer next)
+    {
+        if(player.checkCard() == false)
+        {
+            player.drawCard();
+            player.nextUser.setTurn(false);
+            
+            if(next.getPos() == "EAST")
+            {
+                com.get(2).setTurn(true);
+                computer2Played();
+            }else{
+                com.get(0).setTurn(true);
+                computerPlayed();
+            }
 
+        }
+    }
     public void checkUno() {
         if (playerButton.getUnoClicked() == true) {
             System.out.println("check uno");
@@ -167,6 +197,8 @@ class Game {
                 }
             });
             timer.start();
+        }else {
+            checkSkipAndDraw(com.get(2));
         }
     }
 
@@ -256,6 +288,9 @@ class Game {
                 }
             });
             timer.start();
+        }else
+        {
+            checkSkipAndDraw(com.get(0));
         }
     }
 

@@ -3,13 +3,14 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 public class choseColorFrame extends JFrame {
     private JButton buttonBLUE;   
     private JButton buttonYELLOW;   
     private JButton buttonGREEN;   
     private JButton buttonRED;  
-    
+    private String noti;
     User player;
     public choseColorFrame()
     {
@@ -19,6 +20,21 @@ public class choseColorFrame extends JFrame {
         buttonYELLOW = new JButton("YELLOW");
         this.init();
         this.setVisible(true);
+    }
+    public choseColorFrame(String noti)
+    {
+        this.noti = noti;
+        this.init("THÔNG BÁO");
+    }
+    void init(String title)
+    {
+        this.setTitle(title); // set title
+        this.setSize(500, 100); // x-dimension and y-dimension
+        this.setResizable(false);
+        JTextField text = new JTextField(noti);
+        this.add(text);
+        this.setLocationRelativeTo(null);
+
     }
     void init()
     {

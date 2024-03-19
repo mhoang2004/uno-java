@@ -94,11 +94,15 @@ public class Card extends JLabel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("player" + user.getTurn());
         if (!user.checkValid(this)) {
             return;
         }
-
+        if(user.checkCard()== false)
+        {
+            user.getNextUser().setTurn(true);
+            user.setTurn(false);
+            // choseColorFrame notiFrame = new choseColorFrame("VUI LÒNG RÚT BÀI");
+        }
         // if success
         // if (Game.turn == 0) {
         // user.hitCard(this);
@@ -106,6 +110,11 @@ public class Card extends JLabel implements MouseListener {
         // }
         
         if ((user.getTurn() == true)) {
+            
+            if (this.getColor() == null)
+            {
+               // user.chooseColor();
+            }
             if (Game.checkWild()) {
                 user.wild();
             }

@@ -1,7 +1,11 @@
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
-public class Deck {
+public class Deck extends JLabel implements MouseListener{
     // 10: skip, 11: reverse, 12: drawtwo
     static final String[] ranks = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "DRAWTWO", "REVERSE", "SKIP" };
     static final String[] colors = { "B", "G", "Y", "R" };
@@ -9,10 +13,16 @@ public class Deck {
     private ArrayList<Card> deck;
 
     Deck() {
+        // super();
         if (deck != null)
             deck.clear();
         this.createDeck();
         this.shuffleDeck();
+        ImageIcon icon = new ImageIcon("../resources/images/BACK.png");
+        this.setIcon(icon);
+        this.setHorizontalAlignment(JLabel.CENTER); // Center the image horizontally
+        this.setVerticalAlignment(JLabel.CENTER); // Center the image vertically
+        this.setBounds(0, 0, WIDTH, HEIGHT);
     }
 
     private void createDeck() {
@@ -56,11 +66,46 @@ public class Deck {
         return deck;
     }
 
-    public int size() {
-        return deck.size();
-    }
 
     public Card getOneCard() {
         return deck.remove(0);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        boolean drawedCard = false;
+        System.out.println("Clickinggggggggggg");
+        if(Game.player.checkCard() == false && drawedCard == false)
+        {
+            Card card = new Card();
+            card = Game.player.drawCard();
+            card.addMouseListener(card);
+
+            drawedCard = true;
+        }
+        // Game.player.drawCard();
+       
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // TODO Auto-generated method stub
+       
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // TODO Auto-generated method stub
     }
 }
