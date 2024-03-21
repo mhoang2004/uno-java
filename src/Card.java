@@ -107,47 +107,49 @@ public class Card extends JLabel implements MouseListener {
             System.out.println("prevCard = " + Game.prevCard);
         }
         if ((user.getTurn() == true)) {
-            
-            if (this.getColor() == null)
-            {
-               // user.chooseColor();
-            }
             if (Game.checkWild()) {
                 user.wild();
             }
             System.out.println("--------Player card-------");
-            // if (user.checkDrawTwo()) {
-            //     if (this.getRank() != "DRAWTWO") {
-            //         user.checkDrawTwo();
-            //         return;
-            //     }
-            // }
-            // if (user.checkDrawFour()) {
-            //     if (this.getRank() != "DRAWFOUR") {
-            //         user.checkDrawTwo();
-            //         return;
-            //     }
-            // }
-            user.hitCard(this);
+            if(this.getColor() ==  null)
+            {
+                Player.choosingColor = false;
+                user.setTurn(false);
+                choseColorFrame myFrame = new choseColorFrame(user, this);
+                System.out.println("BAO:"+Game.prevCard.toString());
+                
+            }else{
+                user.hitCard(this);
+            }
+            Game.frame.getContentPane().setBackground(new Color(0, 0, 255));
+            if (Game.prevCard.getColor()== Deck.colors[0]) {
+            } else if (Game.prevCard.getColor()== Deck.colors[3]) {
+                Game.frame.getContentPane().setBackground(new Color(255, 0, 0));
+            } else if (Game.prevCard.getColor()== Deck.colors[2]) {
+                Game.frame.getContentPane().setBackground(new Color(255, 0, 0));
+            } else {
+                System.out.println("HELLo");
+            }
+               
+            
             Computer.selectedCard = true;
             System.out.println("selectedCard = " + Computer.selectedCard);
             System.out.println("prevCard = " + Game.prevCard);
-            if (Game.prevCard.getColor() == "B") {
-                Game.frame.setBackground(new Color(0, 0, 255));
-            } else if (Game.prevCard.getColor() == "R") {
-                Game.frame.setBackground(new Color(255, 0, 0));
-            } else if (Game.prevCard.getColor() == "Y") {
-                Game.frame.setBackground(new Color(255, 0, 0));
-            } else {
+            // if (Game.prevCard.getColor() == "B") {
+            //     Game.frame.setBackground(new Color(0, 0, 255));
+            // } else if (Game.prevCard.getColor() == "R") {
+            //     Game.frame.setBackground(new Color(255, 0, 0));
+            // } else if (Game.prevCard.getColor() == "Y") {
+            //     Game.frame.setBackground(new Color(255, 0, 0));
+            // } else {
 
-            }
+            // }
         }
         // REVERSE
         if ((Game.prevCard.getRank() == "REVERSE") && (Computer.selectedCard != false)) {
             Game.reverse();
         }
-        user.getNextUser().setTurn(true);
-        user.setTurn(false);
+       
         // SKIP
         if ((Game.checkSkip()) && (Computer.selectedCard != false)) {
             user.skip();
@@ -160,6 +162,8 @@ public class Card extends JLabel implements MouseListener {
             timer.start();
             return;
         }
+        user.getNextUser().setTurn(true);
+        user.setTurn(false);
         if (Game.reverse == true) {
             Timer timer = new Timer(2000, new ActionListener() {
                 public void actionPerformed(ActionEvent e) {

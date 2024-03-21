@@ -6,17 +6,29 @@ import java.util.ArrayList;
 import javax.swing.JLayeredPane;
 
 public class Player extends User {
-    private ArrayList<Card> suggestedCards;
-
+    public static boolean choosingColor;
     Player(Deck deck) {
         super(deck);
         this.getLatestPanel();
-
-        for (Card card : cards) {
+        ID = "Player";
+        choosingColor = true;
+         for (Card card : cards) {
             card.addMouseListener(card);
             card.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         }
-        // suggestedCards();
+        for (Card card : suggestedCards) {
+            card.suggestedEffect();
+        }
+        // if(cards.get(0).getColor() != null)
+        // {
+        //     cards.set(0, new Card(null, "WILD"));
+        // }
+        // for (Card card : cards) {
+        //     if(checkValid(card))
+        //     {
+        //         card.suggestedEffect();
+        //     }
+        // }
     }
 
     public void playerHitCard(Card card) {

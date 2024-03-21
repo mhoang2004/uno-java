@@ -21,6 +21,8 @@ public class MyFrame extends JFrame {
         this.setIconImage(image.getImage());
 
         // change color of background
+        
+        
         this.getContentPane().setBackground(new Color(3, 104, 63));
     }
 }

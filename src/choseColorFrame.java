@@ -1,8 +1,10 @@
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class choseColorFrame extends JFrame {
@@ -11,9 +13,14 @@ public class choseColorFrame extends JFrame {
     private JButton buttonGREEN;   
     private JButton buttonRED;  
     private String noti;
-    User player;
-    public choseColorFrame()
+    public User user;
+    public Card thisCard;
+    public String src;
+    public choseColorFrame(User user , Card thisCard)
     {
+        src = null;
+        this.user = user;
+        this.thisCard = thisCard;
         buttonBLUE = new JButton("BLUE");
         buttonGREEN = new JButton("GREEN");
         buttonRED = new JButton("RED");
@@ -40,22 +47,25 @@ public class choseColorFrame extends JFrame {
     {
         this.setTitle("Chose Color"); // set title
         this.setSize(500, 100); // x-dimension and y-dimension
+        JLabel buts = new JLabel();
+        buts.setLayout(new GridLayout());
         ActionListener ac = new choseColor(this);
         buttonRED.addActionListener(ac);
         buttonGREEN.addActionListener(ac);
         buttonBLUE.addActionListener(ac);
         buttonYELLOW.addActionListener(ac);
         this.setResizable(false);
-        this.setLayout(new GridLayout());
-        this.add(buttonBLUE);
-        this.add(buttonRED);
-        this.add(buttonGREEN);
-        this.add(buttonYELLOW);
+        this.setLayout(new BorderLayout());
+        buts.add(buttonBLUE);
+        buts.add(buttonRED);
+        buts.add(buttonGREEN);
+        buts.add(buttonYELLOW);
+        JTextField text = new JTextField("Hello ");
+        this.add(text, BorderLayout.NORTH);
+        this.add(buts, BorderLayout.CENTER);
         this.setLocationRelativeTo(null);
+        this.setVisible(true);
     }
-    public void setColor(String color)
-    {
-        player.setColorPrevCard(color);
-    }
+    
     
 }

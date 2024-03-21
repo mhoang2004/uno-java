@@ -10,10 +10,25 @@ public class choseColor  implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         // throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
-        String src = e.getActionCommand();
-        System.out.println(src +"- " +src.substring(0, 0));
-        // view.setColor(src.substring(0, 0));
+        System.out.println("CLICKINGGGGGGG");
+        view.src = e.getActionCommand();
+        view.src =view.src.charAt(0) +"";
+        view.user.setColorPrevCard(view.src, view.thisCard);
+        System.out.println("test: " + Game.prevCard.toString());
+        Player.choosingColor = true;
+        view.user.getNextUser().setTurn(true);
+        view.user.setTurn(false);
+        view.user.hitCard(view.thisCard);
+        if(Game.reverse == true)
+        {
+            Game.computerPlayed();
+        }else{
+            Game.computer2Played();
+        }
+        
         view.setVisible(false);
+        
+
     }
 }
     

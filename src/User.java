@@ -14,8 +14,13 @@ public abstract class User  {
     protected User nextUser;
     protected boolean turn;
     protected int count;
+    public Object view;
+    protected String ID;
+    protected ArrayList<Card> suggestedCards;
+
     User(Deck deck) {
         cards = new ArrayList<Card>();
+        suggestedCards = new ArrayList<Card>();
         // JLayeredPane = Swing container that provides a third dimension for
         // positioning components. Ex: depth, z-index
         panel = new JLayeredPane();
@@ -36,9 +41,19 @@ public abstract class User  {
 
         for (int i = 0; i < INIT_CARD; i++) {
             Card card = deck.getOneCard();
+            
             card.setUser(this); // set user
             cards.add(card);
         }
+        // for (Card card : cards) {
+        //     if(checkValid(card))
+        //     {
+        //         suggestedCards.add(card);
+        //     }
+        // }
+           
+        
+        
         // TEST SKIP
         // for (int i = 0; i < INIT_CARD; i++) {
         //     Card card = new Card("B", "SKIP");
@@ -56,22 +71,20 @@ public abstract class User  {
         //     card.setUser(this); // set user
         //     cards.add(card);
         // }
-
+            // checkCard();
         sortCard();
-        // System.out.println("-------------------------TRƯỚC KHI
-        // SORT----------------");
-        // for (Card card : cards) {
-        // System.out.println(card.toString());
-        // }
-        // sortCard();
-        // System.out.println("-------------------------SAU KHI SORT----------------");
-        // for (Card card : cards) {
-        // System.out.println(card.toString());
-        // }
     }
 
     public void hitCard(Card card) {
-        Game.prevCard.assignCard(card);
+        if(card.getColor() == null)
+        {
+
+        }
+        else{
+            Game.prevCard.assignCard(card);
+
+        }
+       
 
         // TODO animation
         // card.setLocation(0, 0);
@@ -84,9 +97,12 @@ public abstract class User  {
         panel.repaint(); // clear all card
 
         getLatestPanel(); // repaint
+        
+
     }
 
     public void sortCard() {
+        
         Card firstCard = new Card(cards.get(0));
         for (int i = 1; i < cards.size(); i++) {
             if (firstCard.getColor() != cards.get(i).getColor()) {
@@ -145,9 +161,18 @@ public abstract class User  {
     }
     public boolean checkCard ()
     {
+        sortCard();
+        for (Card card : cards) {
+            if(checkValid(card))
+            {
+                card.suggestedEffect();
+            }else{
+                card.setCard();
+            }
+        }
         for (Card card : cards) {
             if(checkValid(card)== true){
-                System.out.println("true");
+
                 return true;
             }
         }
@@ -173,6 +198,8 @@ public abstract class User  {
         cards.add(card);
         card.setUser(this);
         panel.removeAll();
+        sortCard();
+
         panel.repaint(); // clear all card
         getLatestPanel();
         this.count++;
@@ -209,6 +236,7 @@ public abstract class User  {
         // for (Card card2 : cards) {
         //     System.out.println(card2.toString());
         // }
+        
         if (card.getColor() == prevCard.getColor()) {
             return true;
         }
@@ -221,24 +249,30 @@ public abstract class User  {
         return false;
     }
     //fail
-    public void setColorPrevCard(String color)
+    public void setColorPrevCard(String color,Card card)
     {
         
         Game.prevCard.setColor(color);
+        Game.prevCard.setRank(card.getRank());
     }
-
+    
     // choose color
-    public String chooseColor() {
-    choseColorFrame myFrame = new choseColorFrame();
-        myFrame.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                // Khi frame mới đóng, hiển thị lại frame cũ
-                Game.frame.setVisible(true);
-                myFrame.dispose();
-            }
-        });
-        return "B";
-    }
+    // public Card chooseColor() {
+    //     if(ID == "Player")
+    //     {
+    //         Game.prevCard.setRank(null);
+    //         choseColorFrame myFrame = new choseColorFrame(this, );
+
+    //         myFrame.addWindowListener(new WindowAdapter() {
+    //             public void windowClosing(WindowEvent e) {
+    //                 // Khi frame mới đóng, hiển thị lại frame cũ
+    //                 Game.frame.setVisible(true);
+    //                 myFrame.dispose();
+    //             }
+    //         });
+    //     }   
+    //     return Game.prevCard ;
+    // }
 
     public void passTurn() {
         this.getNextUser().setTurn(false);
@@ -265,12 +299,12 @@ public abstract class User  {
             this.getNextUser().drawCard(); 
             this.getNextUser().drawCard(); 
             this.passTurn();
-          Game.prevCard.setColor(chooseColor());
+            // Game.prevCard.setColor(chooseColor().getColor());
         }
     }
     public void wild() {
         if (Game.prevCard.getRank() == "WILD") {
-            Game.prevCard.setColor(chooseColor());
+            // Game.prevCard.setColor(chooseColor().getColor());
             Game.prevCard.setRank(null);
         }
     }

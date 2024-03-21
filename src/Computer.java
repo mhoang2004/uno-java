@@ -11,6 +11,8 @@ public class Computer extends User {
     }
     Computer(Deck deck, String position) {
         super(deck);
+        ID ="Computer";
+
         this.position = position;
         this.count = 7;
         this.getLatestPanel();
